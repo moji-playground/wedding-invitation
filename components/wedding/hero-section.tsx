@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
-import Image from "next/image"
+import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 export function HeroSection() {
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    el.style.opacity = "0"
-    el.style.transform = "translateY(20px)"
+    const el = ref.current;
+    if (!el) return;
+    el.style.opacity = "0";
+    el.style.transform = "translateY(20px)";
     requestAnimationFrame(() => {
-      el.style.transition = "opacity 1.2s ease, transform 1.2s ease"
-      el.style.opacity = "1"
-      el.style.transform = "translateY(0)"
-    })
-  }, [])
+      el.style.transition = "opacity 1.2s ease, transform 1.2s ease";
+      el.style.opacity = "1";
+      el.style.transform = "translateY(0)";
+    });
+  }, []);
 
   return (
     <section className="relative flex flex-col items-center px-6 pt-12 pb-8">
@@ -37,9 +37,13 @@ export function HeroSection() {
         </p>
 
         <div className="flex items-center gap-4">
-          <span className="font-serif text-3xl font-medium text-foreground">현모</span>
+          <span className="font-serif text-3xl font-medium text-foreground">
+            정현모
+          </span>
           <span className="text-primary text-2xl font-serif">&</span>
-          <span className="font-serif text-3xl font-medium text-foreground">은지</span>
+          <span className="font-serif text-3xl font-medium text-foreground">
+            김은지
+          </span>
         </div>
 
         <div className="w-12 h-px bg-primary/40 my-2" />
@@ -52,5 +56,5 @@ export function HeroSection() {
         </p>
       </div>
     </section>
-  )
+  );
 }

@@ -30,7 +30,7 @@ const brideAccounts: AccountInfo[] = [
   {
     relation: "신부",
     bank: "국민",
-    number: "107-01-0558-441",
+    number: "107010558441",
     holder: "김은지",
   },
   {

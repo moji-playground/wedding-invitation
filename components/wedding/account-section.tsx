@@ -1,45 +1,70 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { Copy, Check, ChevronDown, ChevronUp } from "lucide-react"
+import { useState, useEffect, useRef } from "react";
+import { Copy, Check, ChevronDown, ChevronUp } from "lucide-react";
 
 interface AccountInfo {
-  relation: string
-  bank: string
-  number: string
-  holder: string
+  relation: string;
+  bank: string;
+  number: string;
+  holder: string;
 }
 
 const groomAccounts: AccountInfo[] = [
-  { relation: "신랑", bank: "국민은행", number: "000-000-000000", holder: "정현모" },
-  { relation: "신랑 아버지", bank: "신한은행", number: "000-000-000000", holder: "정원봉" },
-  { relation: "신랑 어머니", bank: "우리은행", number: "000-000-000000", holder: "임금미" },
-]
+  { relation: "신랑", bank: "신한", number: "110531015046", holder: "정현모" },
+  {
+    relation: "신랑 아버지",
+    bank: "농협",
+    number: "3123566978511",
+    holder: "정원봉",
+  },
+  {
+    relation: "신랑 어머니",
+    bank: "국민",
+    number: "67470104276652",
+    holder: "임금미",
+  },
+];
 
 const brideAccounts: AccountInfo[] = [
-  { relation: "신부", bank: "카카오뱅크", number: "0000-00-0000000", holder: "김은지" },
-  { relation: "신부 아버지", bank: "하나은행", number: "000-000000-00000", holder: "김태훈" },
-  { relation: "신부 어머니", bank: "농협은행", number: "000-0000-0000-00", holder: "박인숙" },
-]
+  {
+    relation: "신부",
+    bank: "국민",
+    number: "107-01-0558-441",
+    holder: "김은지",
+  },
+  {
+    relation: "신부 아버지",
+    bank: "국민",
+    number: "107240210605",
+    holder: "김태훈",
+  },
+  {
+    relation: "신부 어머니",
+    bank: "국민",
+    number: "111240294031",
+    holder: "박인숙",
+  },
+];
 
 export function AccountSection() {
-  const [groomOpen, setGroomOpen] = useState(false)
-  const [brideOpen, setBrideOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
+  const [groomOpen, setGroomOpen] = useState(false);
+  const [brideOpen, setBrideOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("opacity-100", "translate-y-0")
-          entry.target.classList.remove("opacity-0", "translate-y-6")
+          entry.target.classList.add("opacity-100", "translate-y-0");
+          entry.target.classList.remove("opacity-0", "translate-y-6");
         }
       },
-      { threshold: 0.2 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
+      { threshold: 0.2 },
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section className="px-6 py-16">
@@ -112,21 +137,21 @@ export function AccountSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function AccountRow({ account }: { account: AccountInfo }) {
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(account.number)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      await navigator.clipboard.writeText(account.number);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     } catch {
       // fallback for unsupported browsers
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-between py-2 border-b border-border/30 last:border-0">
@@ -142,8 +167,12 @@ function AccountRow({ account }: { account: AccountInfo }) {
         className="shrink-0 w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-secondary-foreground hover:bg-secondary/70 transition-colors"
         aria-label={`${account.bank} 계좌번호 복사`}
       >
-        {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+        {copied ? (
+          <Check className="w-3.5 h-3.5" />
+        ) : (
+          <Copy className="w-3.5 h-3.5" />
+        )}
       </button>
     </div>
-  )
+  );
 }

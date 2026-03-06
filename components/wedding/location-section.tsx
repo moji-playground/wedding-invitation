@@ -160,42 +160,83 @@ function TransportItem({
   );
 }
 
+import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
+import { useState } from "react";
+import { Heart } from "lucide-react";
+
 function KakaoMap() {
-  const htmlContent = `
-    <!DOCTYPE html>
-    <html lang="ko">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
-        .root_daum_roughmap { width: 100% !important; height: 100% !important; }
-        .wrap_map { width: 100% !important; height: 100% !important; }
-      </style>
-    </head>
-    <body>
-      <div id="daumRoughmapContainer1772794998650" class="root_daum_roughmap root_daum_roughmap_landing"></div>
-      <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
-      <script charset="UTF-8">
-        new daum.roughmap.Lander({
-          "timestamp" : "1772794998650",
-          "key" : "ihjaszgf92x",
-          "mapWidth" : "640",
-          "mapHeight" : "360"
-        }).render();
-      </script>
-    </body>
-    </html>
-  `;
+  const [position, setPosition] = useState<{ lat: number; lng: number } | null>(
+    null,
+  );
+  const address = "부산 남구 전포대로 26 삼성힐타워상가 1층";
+
+  useEffect(() => {
+    const kakao = window.kakao;
+    if (!kakao || !kakao.maps) return;
+
+    kakao.maps.load(() => {
+      const geocoder = new kakao.maps.services.Geocoder();
+      geocoder.addressSearch(address, (result: any, status: any) => {
+        if (status === kakao.maps.services.Status.OK) {
+          setPosition({
+            lat: parseFloat(result[0].y),
+            lng: parseFloat(result[0].x),
+          });
+        }
+      });
+    });
+  }, []);
+
+  if (!position) {
+    return (
+      <div className="w-full aspect-[16/9] bg-muted rounded-xl flex items-center justify-center text-sm text-muted-foreground animate-pulse">
+        위치 정보 로드 중...
+      </div>
+    );
+  }
 
   return (
-    <iframe
-      srcDoc={htmlContent}
-      className="absolute top-0 left-0 w-full h-full"
-      style={{ border: 0 }}
-      allowFullScreen
-      loading="lazy"
-      title="더 S 웨딩홀 카카오맵 위치"
-    />
+    <div className="w-full aspect-[16/9] rounded-xl overflow-hidden relative shadow-inner">
+      <Map
+        center={position}
+        style={{ width: "100%", height: "100%" }}
+        level={3} // 조금 더 확대해서 상세히 보이게 수정
+      >
+        <CustomOverlayMap position={position} yAnchor={1}>
+          <div className="flex flex-col items-center">
+            {/* Integrated Seamless Pin Shape */}
+            <div className="relative flex flex-col items-center group">
+              {/* Ping animation effect */}
+              <div className="absolute top-2 w-8 h-8 bg-rose-400 rounded-full animate-ping opacity-25" />
+
+              <div className="relative z-10">
+                {/* SVG Pin Shape (Integrated) */}
+                <svg
+                  width="30"
+                  height="38"
+                  viewBox="0 0 36 44"
+                  className="drop-shadow-lg"
+                >
+                  <path
+                    d="M18 0C8.05882 0 0 8.05882 0 18C0 23.5 6 32 18 44C30 32 36 23.5 36 18C36 8.05882 27.9412 0 18 0Z"
+                    fill="#f27489ff" // rose-500
+                    stroke="white"
+                    strokeWidth="2"
+                  />
+                  <foreignObject x="10" y="10" width="20" height="20">
+                    <Heart className="w-4 h-4 text-white fill-white" />
+                  </foreignObject>
+                </svg>
+              </div>
+            </div>
+
+            {/* Label - More compact and clean */}
+            <div className="bg-white/95 backdrop-blur-sm px-2 py-0.5 rounded-full shadow-lg mt-1 text-[10px] font-medium border-2 border-rose-200 whitespace-nowrap">
+              더 S 웨딩홀
+            </div>
+          </div>
+        </CustomOverlayMap>
+      </Map>
+    </div>
   );
 }

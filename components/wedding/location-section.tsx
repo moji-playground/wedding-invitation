@@ -1,24 +1,24 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
-import { MapPin, Car, Train, Bus, ParkingCircle, Phone } from "lucide-react"
+import { useEffect, useRef } from "react";
+import { MapPin, Car, Train, Bus, ParkingCircle, Phone } from "lucide-react";
 
 export function LocationSection() {
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("opacity-100", "translate-y-0")
-          entry.target.classList.remove("opacity-0", "translate-y-6")
+          entry.target.classList.add("opacity-100", "translate-y-0");
+          entry.target.classList.remove("opacity-0", "translate-y-6");
         }
       },
-      { threshold: 0.2 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
+      { threshold: 0.2 },
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section className="px-6 py-16">
@@ -59,25 +59,15 @@ export function LocationSection() {
               </div>
             </div>
 
-            {/* Map embed - centered on 문현역 area */}
+            {/* Map embed - Kakao Map */}
             <div className="mt-4 w-full aspect-[16/9] rounded-xl overflow-hidden bg-muted relative">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3163.0!2d129.0645!3d35.1370!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3568ed41c5b1a3e1%3A0x0!2z67aA7IKw6rSR7Jet7IucIOuCqOq1rCDsoITtj6zrjIDroZwgMjYg7IK87ISx7Z6Y7YOA7JuMIDHsuLU!5e0!3m2!1sko!2skr!4v1"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="더 S 웨딩홀 위치"
-                className="rounded-xl"
-              />
+              <KakaoMap />
             </div>
 
             {/* Map links */}
             <div className="mt-4 flex gap-2">
               <a
-                href="https://map.naver.com/p/search/%EB%8D%94S%EC%9B%A8%EB%94%A9%ED%99%80"
+                href="https://naver.me/xSFkOZZd"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 text-center py-2.5 text-sm bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors font-medium"
@@ -85,7 +75,7 @@ export function LocationSection() {
                 네이버 지도
               </a>
               <a
-                href="https://map.kakao.com/link/search/%EB%8D%94S%EC%9B%A8%EB%94%A9%ED%99%80"
+                href="https://kko.to/ZC4scFN4U5"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 text-center py-2.5 text-sm bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors font-medium"
@@ -127,7 +117,7 @@ export function LocationSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function TransportItem({
@@ -136,10 +126,10 @@ function TransportItem({
   desc,
   lines,
 }: {
-  icon: React.ReactNode
-  title: string
-  desc?: string
-  lines?: string[]
+  icon: React.ReactNode;
+  title: string;
+  desc?: string;
+  lines?: string[];
 }) {
   return (
     <div className="flex items-start gap-3">
@@ -148,15 +138,65 @@ function TransportItem({
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium text-foreground">{title}</p>
-        {desc && <p className="text-sm text-muted-foreground mt-0.5 leading-relaxed">{desc}</p>}
+        {desc && (
+          <p className="text-sm text-muted-foreground mt-0.5 leading-relaxed">
+            {desc}
+          </p>
+        )}
         {lines && (
           <div className="flex flex-col gap-1 mt-1">
             {lines.map((line, i) => (
-              <p key={i} className="text-sm text-muted-foreground leading-relaxed">{line}</p>
+              <p
+                key={i}
+                className="text-sm text-muted-foreground leading-relaxed"
+              >
+                {line}
+              </p>
             ))}
           </div>
         )}
       </div>
     </div>
-  )
+  );
+}
+
+function KakaoMap() {
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html lang="ko">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
+        .root_daum_roughmap { width: 100% !important; height: 100% !important; }
+        .wrap_map { width: 100% !important; height: 100% !important; }
+      </style>
+    </head>
+    <body>
+      <div id="daumRoughmapContainer1772794998650" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+      <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+      <script charset="UTF-8">
+        new daum.roughmap.Lander({
+          "timestamp" : "1772794998650",
+          "key" : "ihjaszgf92x",
+          "mapWidth" : "100%",
+          "mapHeight" : "100%"
+        }).render();
+      </script>
+    </body>
+    </html>
+  `;
+
+  return (
+    <iframe
+      srcDoc={htmlContent}
+      width="100%"
+      height="100%"
+      style={{ border: 0 }}
+      allowFullScreen
+      loading="lazy"
+      title="더 S 웨딩홀 카카오맵 위치"
+    />
+  );
 }

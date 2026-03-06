@@ -180,8 +180,8 @@ function KakaoMap() {
         new daum.roughmap.Lander({
           "timestamp" : "1772794998650",
           "key" : "ihjaszgf92x",
-          "mapWidth" : "100%",
-          "mapHeight" : "100%"
+          "mapWidth" : "640",
+          "mapHeight" : "360"
         }).render();
       </script>
     </body>
@@ -191,8 +191,7 @@ function KakaoMap() {
   return (
     <iframe
       srcDoc={htmlContent}
-      width="100%"
-      height="100%"
+      className="absolute top-0 left-0 w-full h-full"
       style={{ border: 0 }}
       allowFullScreen
       loading="lazy"

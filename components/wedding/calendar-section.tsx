@@ -97,8 +97,8 @@ export function CalendarSection() {
                     {day}
                   </div>
                   {isWedding && (
-                    <div className="absolute -top-2 -right-1 bg-background rounded-full p-0.5 animate-pulse">
-                      <Heart className="w-4 h-4 text-primary fill-primary" />
+                    <div className="absolute -top-3 flex justify-center w-full animate-bounce">
+                      <Heart className="w-3.5 h-3.5 text-pink-400 fill-pink-400" />
                     </div>
                   )}
                 </div>

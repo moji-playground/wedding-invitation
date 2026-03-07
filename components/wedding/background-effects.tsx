@@ -15,15 +15,15 @@ export function BackgroundEffects() {
       if (Date.now() - lastTime > 600) {
         confetti({
           particleCount: 1,
-          startVelocity: 0, // Fall gently downwards without shooting up
-          origin: { x: Math.random(), y: -0.1 }, // Random position across the top slightly offscreen
+          startVelocity: 5, // give it a little initial push downwards
+          origin: { x: Math.random(), y: 0 }, // Start exactly at the top
           colors: [colors[Math.floor(Math.random() * colors.length)]], // Individual particle color
-          zIndex: 10,
+          zIndex: 100, // Ensure it is above the main layout background
           disableForReducedMotion: true,
-          gravity: 0.2, // Very slow, graceful fall
-          scalar: 0.3 + Math.random() * 0.2, // Extremely small size (0.3 to 0.5)
+          gravity: 0.4, // Fall slightly faster so it enters the screen
+          scalar: 0.8 + Math.random() * 0.4, // Make it big enough to be visible (0.8 to 1.2)
           drift: Math.random() * 2 - 1, // Random slight horizontal breeze
-          ticks: 800, // Keep particle on screen longer
+          ticks: 600, // Keep particle on screen longer
           shapes: ["circle"], // Soft, petal-like circular shapes rather than harsh rectangles
         });
 

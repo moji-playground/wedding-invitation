@@ -1,4 +1,5 @@
 import { HeroSection } from "@/components/wedding/hero-section";
+import { BackgroundEffects } from "@/components/wedding/background-effects";
 import { GreetingSection } from "@/components/wedding/greeting-section";
 import { GallerySection } from "@/components/wedding/gallery-section";
 import { CalendarSection } from "@/components/wedding/calendar-section";
@@ -12,7 +13,8 @@ import { SectionDivider } from "@/components/wedding/section-divider";
 
 export default function WeddingInvitationPage() {
   return (
-    <main className="min-h-screen bg-background max-w-lg mx-auto">
+    <main className="min-h-screen bg-background max-w-lg mx-auto relative overflow-hidden">
+      <BackgroundEffects />
       <HeroSection />
       <SectionDivider />
       <GreetingSection />

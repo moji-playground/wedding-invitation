@@ -6,38 +6,44 @@ import confetti from "canvas-confetti";
 export function BackgroundEffects() {
   useEffect(() => {
     let animationFrameId: number;
-    const duration = 15 * 1000;
-    const end = Date.now() + duration;
+    const colors = [
+      "#a1e285",
+      "#70c1b3",
+      "#ffe066",
+      "#ffffff",
+      "#b2f5ea",
+      "#ff9a9e",
+    ];
 
     (function frame() {
       confetti({
-        particleCount: 2,
+        particleCount: 1,
         angle: 60,
         spread: 55,
         origin: { x: 0 },
-        colors: ["#a1e285", "#70c1b3", "#ffe066", "#ffffff", "#b2f5ea"], // Summer palette: green, teal, yellow, white, light teal
+        colors: colors,
         zIndex: 50,
         disableForReducedMotion: true,
-        gravity: 0.8,
+        gravity: 0.6,
         scalar: 1.2,
         drift: 1,
+        ticks: 300,
       });
       confetti({
-        particleCount: 2,
+        particleCount: 1,
         angle: 120,
         spread: 55,
         origin: { x: 1 },
-        colors: ["#a1e285", "#70c1b3", "#ffe066", "#ffffff", "#b2f5ea"],
+        colors: colors,
         zIndex: 50,
         disableForReducedMotion: true,
-        gravity: 0.8,
+        gravity: 0.6,
         scalar: 1.2,
         drift: -1,
+        ticks: 300,
       });
 
-      if (Date.now() < end) {
-        animationFrameId = requestAnimationFrame(frame);
-      }
+      animationFrameId = requestAnimationFrame(frame);
     })();
 
     return () => {

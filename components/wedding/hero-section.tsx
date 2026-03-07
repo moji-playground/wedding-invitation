@@ -1,37 +1,51 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export function HeroSection() {
-  const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    el.style.opacity = "0";
-    el.style.transform = "translateY(20px)";
-    requestAnimationFrame(() => {
-      el.style.transition = "opacity 1.2s ease, transform 1.2s ease";
-      el.style.opacity = "1";
-      el.style.transform = "translateY(0)";
-    });
-  }, []);
+  // Parallax slowly moves the image down as user scrolls down
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
   return (
-    <section className="relative flex flex-col items-center px-6 pt-12 pb-8">
-      {/* Floral hero image */}
-      <div className="relative w-full max-w-xs aspect-[3/4] rounded-2xl overflow-hidden mb-8">
-        <Image
-          src="/images/wedding-hero.jpg"
-          alt="웨딩 플로럴 장식"
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
+    <section
+      ref={containerRef}
+      className="relative flex flex-col items-center px-6 pt-12 pb-8 overflow-hidden"
+    >
+      {/* Floral hero image with Parallax */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="relative w-full max-w-xs aspect-[3/4] rounded-2xl overflow-hidden mb-8"
+      >
+        <motion.div
+          style={{ y }}
+          className="absolute inset-0 w-full h-[120%] -top-[10%]"
+        >
+          <Image
+            src="/images/wedding-hero.jpg"
+            alt="웨딩 플로럴 장식"
+            fill
+            className="object-cover"
+            priority
+          />
+        </motion.div>
+      </motion.div>
 
-      <div ref={ref} className="flex flex-col items-center gap-4 text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+        className="flex flex-col items-center gap-4 text-center"
+      >
         <p className="text-sm tracking-[0.3em] text-muted-foreground font-light uppercase">
           Wedding Invitation
         </p>
@@ -54,7 +68,7 @@ export function HeroSection() {
         <p className="text-sm text-muted-foreground">
           더 S 웨딩홀 1층 컨벤션홀
         </p>
-      </div>
+      </motion.div>
     </section>
   );
 }

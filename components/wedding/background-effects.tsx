@@ -16,7 +16,7 @@ export function BackgroundEffects() {
         spread: 55,
         origin: { x: 0 },
         colors: ["#a1e285", "#70c1b3", "#ffe066", "#ffffff", "#b2f5ea"], // Summer palette: green, teal, yellow, white, light teal
-        zIndex: 0,
+        zIndex: 50,
         disableForReducedMotion: true,
         gravity: 0.8,
         scalar: 1.2,
@@ -28,7 +28,7 @@ export function BackgroundEffects() {
         spread: 55,
         origin: { x: 1 },
         colors: ["#a1e285", "#70c1b3", "#ffe066", "#ffffff", "#b2f5ea"],
-        zIndex: 0,
+        zIndex: 50,
         disableForReducedMotion: true,
         gravity: 0.8,
         scalar: 1.2,

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { MapPin, Car, Train, Bus, ParkingCircle, Phone } from "lucide-react";
 
 export function LocationSection() {
@@ -65,22 +66,82 @@ export function LocationSection() {
             </div>
 
             {/* Map links */}
-            <div className="mt-4 flex gap-2">
+            <div className="mt-5 grid grid-cols-4 gap-2">
+              <a
+                href="https://surl.tmobiapi.com/62e032"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-1.5 group"
+              >
+                <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center group-hover:-translate-y-1 transition-transform overflow-hidden">
+                  <Image
+                    src="/images/icons/tmap.png"
+                    alt="티맵"
+                    width={48}
+                    height={48}
+                    className="object-cover"
+                  />
+                </div>
+                <span className="text-[11px] font-medium text-muted-foreground">
+                  티맵
+                </span>
+              </a>
+              <a
+                href="https://kakaonavi.kakao.com/launch/index.do?ep=35.1432,129.0664&name=%EB%8D%94S%EC%9B%A8%EB%94%A9%ED%99%80"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-1.5 group"
+              >
+                <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center group-hover:-translate-y-1 transition-transform overflow-hidden">
+                  <Image
+                    src="/images/icons/kakaonavi.png"
+                    alt="카카오내비"
+                    width={48}
+                    height={48}
+                    className="object-cover"
+                  />
+                </div>
+                <span className="text-[11px] font-medium text-muted-foreground">
+                  카카오내비
+                </span>
+              </a>
               <a
                 href="https://naver.me/xSFkOZZd"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 text-center py-2.5 text-sm bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors font-medium"
+                className="flex flex-col items-center gap-1.5 group"
               >
-                네이버 지도
+                <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center group-hover:-translate-y-1 transition-transform overflow-hidden">
+                  <Image
+                    src="/images/icons/navermap.png"
+                    alt="네이버지도"
+                    width={48}
+                    height={48}
+                    className="object-cover"
+                  />
+                </div>
+                <span className="text-[11px] font-medium text-muted-foreground">
+                  네이버지도
+                </span>
               </a>
               <a
                 href="https://kko.to/ZC4scFN4U5"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 text-center py-2.5 text-sm bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors font-medium"
+                className="flex flex-col items-center gap-1.5 group"
               >
-                카카오맵
+                <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center group-hover:-translate-y-1 transition-transform overflow-hidden">
+                  <Image
+                    src="/images/icons/kakaomap.png"
+                    alt="카카오맵"
+                    width={48}
+                    height={48}
+                    className="object-cover"
+                  />
+                </div>
+                <span className="text-[11px] font-medium text-muted-foreground">
+                  카카오맵
+                </span>
               </a>
             </div>
           </div>

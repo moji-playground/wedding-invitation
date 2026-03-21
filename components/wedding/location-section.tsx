@@ -68,7 +68,7 @@ export function LocationSection() {
             {/* Map links */}
             <div className="mt-5 grid grid-cols-4 gap-2">
               <a
-                href="https://surl.tmobiapi.com/62e032"
+                href="https://tmap.life/8855801c"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-1.5 group"
@@ -86,10 +86,22 @@ export function LocationSection() {
                   티맵
                 </span>
               </a>
-              <a
-                href="https://kakaonavi.kakao.com/launch/index.do?ep=35.1432,129.0664&name=%EB%8D%94S%EC%9B%A8%EB%94%A9%ED%99%80"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => {
+                  const kakao = (window as any).Kakao;
+                  if (kakao && kakao.Navi) {
+                    kakao.Navi.start({
+                      name: "더 S 웨딩홀",
+                      x: 129.0664,
+                      y: 35.1432,
+                      coordType: "wgs84",
+                    });
+                  } else {
+                    alert(
+                      "카카오내비 SDK를 불러오는 중입니다. 잠시 후 다시 시도해 주세요.",
+                    );
+                  }
+                }}
                 className="flex flex-col items-center gap-1.5 group"
               >
                 <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center group-hover:-translate-y-1 transition-transform overflow-hidden">
@@ -104,7 +116,7 @@ export function LocationSection() {
                 <span className="text-[11px] font-medium text-muted-foreground">
                   카카오내비
                 </span>
-              </a>
+              </button>
               <a
                 href="https://naver.me/xSFkOZZd"
                 target="_blank"

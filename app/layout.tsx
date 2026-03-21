@@ -65,7 +65,12 @@ export default function RootLayout({
         />
         <Script
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
+          onLoad={() => {
+            if (window.Kakao && !window.Kakao.isInitialized()) {
+              window.Kakao.init("2e881768d76c32426bc22b208b480679");
+            }
+          }}
         />
       </body>
     </html>

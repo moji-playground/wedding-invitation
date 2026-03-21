@@ -88,26 +88,49 @@ export function LocationSection() {
               </a>
               <button
                 onClick={() => {
-                  const kakao = (window as any).Kakao;
-                  if (kakao) {
-                    if (!kakao.isInitialized()) {
-                      kakao.init("2e881768d76c32426bc22b208b480679");
+                  try {
+                    const kakao = (window as any).Kakao;
+                    if (kakao) {
+                      if (!kakao.isInitialized()) {
+                        kakao.init("2e881768d76c32426bc22b208b480679");
+                      }
+
+                      const isMobile = /iPhone|iPad|iPod|Android/i.test(
+                        navigator.userAgent,
+                      );
+
+                      if (isMobile && kakao.Navi) {
+                        // 모바일에서는 카카오내비 앱 실행
+                        kakao.Navi.start({
+                          name: "더 S 웨딩홀",
+                          x: 129.0664,
+                          y: 35.1432,
+                          coordType: "wgs84",
+                        });
+                      } else {
+                        // PC 등 모바일이 아닌 경우 카카오맵 웹 길찾기로 우회
+                        window.open(
+                          "https://map.kakao.com/link/to/더%20S%20웨딩홀,35.1432,129.0664",
+                          "_blank",
+                        );
+                      }
+                    } else {
+                      // SDK 로드 실패 시 일반 카카오맵 링크로 백업 이동
+                      window.open(
+                        "https://map.kakao.com/link/to/더%20S%20웨딩홀,35.1432,129.0664",
+                        "_blank",
+                      );
                     }
-                    if (kakao.Navi) {
-                      kakao.Navi.start({
-                        name: "더 S 웨딩홀",
-                        x: 129.0664,
-                        y: 35.1432,
-                        coordType: "wgs84",
-                      });
-                    }
-                  } else {
-                    alert(
-                      "카카오내비 SDK를 불러오는 중입니다. 잠시 후 다시 시도해 주세요.",
+                  } catch (error) {
+                    console.error("카카오내비 실행 오류:", error);
+                    window.open(
+                      "https://map.kakao.com/link/to/더%20S%20웨딩홀,35.1432,129.0664",
+                      "_blank",
                     );
                   }
                 }}
-                className="flex flex-col items-center gap-1.5 group"
+                type="button"
+                className="cursor-pointer flex flex-col items-center gap-1.5 group"
               >
                 <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center group-hover:-translate-y-1 transition-transform overflow-hidden">
                   <Image

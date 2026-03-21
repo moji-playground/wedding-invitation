@@ -89,13 +89,18 @@ export function LocationSection() {
               <button
                 onClick={() => {
                   const kakao = (window as any).Kakao;
-                  if (kakao && kakao.Navi) {
-                    kakao.Navi.start({
-                      name: "더 S 웨딩홀",
-                      x: 129.0664,
-                      y: 35.1432,
-                      coordType: "wgs84",
-                    });
+                  if (kakao) {
+                    if (!kakao.isInitialized()) {
+                      kakao.init("2e881768d76c32426bc22b208b480679");
+                    }
+                    if (kakao.Navi) {
+                      kakao.Navi.start({
+                        name: "더 S 웨딩홀",
+                        x: 129.0664,
+                        y: 35.1432,
+                        coordType: "wgs84",
+                      });
+                    }
                   } else {
                     alert(
                       "카카오내비 SDK를 불러오는 중입니다. 잠시 후 다시 시도해 주세요.",

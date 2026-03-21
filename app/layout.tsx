@@ -21,21 +21,8 @@ export const metadata: Metadata = {
   description: "2026년 6월 6일 토요일 오후 12시 30분, 더 S 웨딩홀",
   generator: "v0.app",
   icons: {
-    icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    apple: "/apple-icon.png",
+    icon: "/wedding-3D-character.png",
+    apple: "/wedding-3D-character.png",
   },
 };
 

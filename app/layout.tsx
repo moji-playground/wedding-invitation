@@ -55,10 +55,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${_notoSerif.variable} ${_notoSans.variable} font-sans antialiased`}
+        className={`${_notoSerif.variable} ${_notoSans.variable} font-sans antialiased bg-background text-foreground`}
       >
         {children}
-        <Analytics />{" "}
+        <Analytics />
         <Script
           src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2e881768d76c32426bc22b208b480679&libraries=services,clusterer&autoload=false"
           strategy="beforeInteractive"

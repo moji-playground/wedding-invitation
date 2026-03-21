@@ -51,21 +51,23 @@ export function HeroSection() {
         </p>
 
         <div className="flex items-center gap-4">
-          <span className="font-serif text-3xl font-medium text-foreground">
+          <span className="font-serif text-3xl font-medium text-foreground sm:text-4xl transition-all duration-700">
             정현모
           </span>
-          <span className="text-primary text-2xl font-serif">&</span>
-          <span className="font-serif text-3xl font-medium text-foreground">
+          <span className="text-primary text-2xl font-serif animate-pulse">
+            &
+          </span>
+          <span className="font-serif text-3xl font-medium text-foreground sm:text-4xl transition-all duration-700">
             김은지
           </span>
         </div>
 
         <div className="w-12 h-px bg-primary/40 my-2" />
 
-        <p className="font-serif text-base text-muted-foreground leading-relaxed">
+        <p className="font-serif text-base text-muted-foreground leading-relaxed sm:text-lg">
           2026년 6월 6일 토요일 오후 12시 30분
         </p>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground tracking-wide opacity-80">
           더 S 웨딩홀 1층 컨벤션홀
         </p>
       </motion.div>

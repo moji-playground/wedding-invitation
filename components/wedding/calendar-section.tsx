@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Heart } from "lucide-react";
 
 const JUNE_2026 = {
   year: 2026,
@@ -84,9 +83,9 @@ export function CalendarSection() {
                   className="relative flex items-center justify-center"
                 >
                   <div
-                    className={`flex items-center justify-center w-8 h-8 text-sm rounded-full transition-all duration-500 ${
+                    className={`flex items-center justify-center w-9 h-9 text-sm rounded-full transition-all duration-700 shadow-sm ${
                       isWedding
-                        ? "bg-primary text-primary-foreground font-serif text-base"
+                        ? "bg-primary text-primary-foreground font-serif text-base font-bold scale-110"
                         : isSunday
                           ? "text-primary/80 font-serif"
                           : isSaturday
@@ -96,11 +95,6 @@ export function CalendarSection() {
                   >
                     {day}
                   </div>
-                  {isWedding && (
-                    <div className="absolute -top-3 flex justify-center w-full animate-bounce">
-                      <Heart className="w-3.5 h-3.5 text-pink-400 fill-pink-400" />
-                    </div>
-                  )}
                 </div>
               );
             })}
@@ -126,9 +120,8 @@ function DdayText() {
   const daysLeft = Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
 
   return (
-    <p className="text-sm text-muted-foreground mt-1">
-      현모와 은지의 결혼식이{" "}
-      <span className="text-primary font-medium">{daysLeft}일</span> 남았습니다.
+    <p className="text-xl font-serif text-primary font-bold mt-2 tracking-tighter">
+      D-{daysLeft}
     </p>
   );
 }

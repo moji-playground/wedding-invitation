@@ -84,7 +84,7 @@ export function AccountSection() {
 
         <div className="w-full max-w-sm flex flex-col gap-3">
           {/* Groom side */}
-          <div className="bg-card rounded-2xl border border-border/50 shadow-sm overflow-hidden">
+          <div className="bg-card rounded-2xl border border-border/50 overflow-hidden transition-all duration-500">
             <button
               onClick={() => setGroomOpen(!groomOpen)}
               className="w-full flex items-center justify-between px-6 py-4 text-sm font-medium text-foreground"
@@ -110,7 +110,7 @@ export function AccountSection() {
           </div>
 
           {/* Bride side */}
-          <div className="bg-card rounded-2xl border border-border/50 shadow-sm overflow-hidden">
+          <div className="bg-card rounded-2xl border border-border/50 overflow-hidden transition-all duration-500">
             <button
               onClick={() => setBrideOpen(!brideOpen)}
               className="w-full flex items-center justify-between px-6 py-4 text-sm font-medium text-foreground"

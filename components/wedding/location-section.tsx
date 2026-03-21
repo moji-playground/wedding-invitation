@@ -100,8 +100,8 @@ export function LocationSection() {
                       );
 
                       if (isMobile && kakao.Navi) {
-                        // 모바일에서는 카카오내비 앱 실행
-                        kakao.Navi.start({
+                        // 모바일에서는 카카오내비 목적지 공유(검색 화면) 앱 실행
+                        kakao.Navi.share({
                           name: "더 S 웨딩홀",
                           x: 129.0664,
                           y: 35.1432,

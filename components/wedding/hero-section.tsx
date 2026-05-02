@@ -11,63 +11,63 @@ export function HeroSection() {
     offset: ["start start", "end start"],
   });
 
-  // Parallax slowly moves the image down as user scrolls down
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
   return (
     <section
       ref={containerRef}
-      className="relative flex flex-col items-center px-6 pt-12 pb-8 overflow-hidden"
+      className="relative w-full aspect-[3/4] overflow-hidden max-w-lg mx-auto"
     >
-      {/* Floral hero image with Parallax */}
+      {/* Full-bleed parallax image */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
-        className="relative w-full max-w-xs aspect-[3/4] rounded-2xl overflow-hidden mb-8"
+        style={{ y }}
+        className="absolute inset-0 w-full h-[120%] -top-[35%]"
       >
-        <motion.div
-          style={{ y }}
-          className="absolute inset-0 w-full h-[120%] -top-[10%]"
-        >
-          <Image
-            src="/images/wedding-hero.jpg"
-            alt="웨딩 플로럴 장식"
-            fill
-            className="object-cover"
-            priority
-          />
-        </motion.div>
+        <Image
+          src="/images/photo3.jpeg"
+          alt="웨딩 사진"
+          fill
+          className="object-cover scale-125"
+          priority
+        />
       </motion.div>
 
+      {/* Bottom gradient overlay */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 35%, rgba(0,0,0,0.10) 50%, rgba(0,0,0,0.05) 70%, transparent 100%)",
+        }}
+      />
+
+      {/* Text overlay at bottom */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-        className="flex flex-col items-center gap-4 text-center"
+        transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
+        className="absolute bottom-0 left-0 right-0 flex flex-col items-center gap-3 pb-10 text-white"
       >
-        <p className="text-sm tracking-[0.3em] text-muted-foreground font-light uppercase">
+        <p className="text-xs tracking-[0.35em] text-white/70 font-light uppercase">
           Wedding Invitation
         </p>
 
         <div className="flex items-center gap-4">
-          <span className="font-serif text-3xl font-medium text-foreground sm:text-4xl transition-all duration-700">
+          <span className="font-serif text-3xl font-medium drop-shadow-sm">
             정현모
           </span>
-          <span className="text-primary text-2xl font-serif animate-pulse">
-            &
-          </span>
-          <span className="font-serif text-3xl font-medium text-foreground sm:text-4xl transition-all duration-700">
+          <span className="text-white/60 text-xl font-serif">&</span>
+          <span className="font-serif text-3xl font-medium drop-shadow-sm">
             김은지
           </span>
         </div>
 
-        <div className="w-12 h-px bg-primary/40 my-2" />
+        <div className="w-10 h-px bg-white/40 my-1" />
 
-        <p className="font-serif text-base text-muted-foreground leading-relaxed sm:text-lg">
+        <p className="font-serif text-sm text-white/80 leading-relaxed">
           2026년 6월 6일 토요일 오후 12시 30분
         </p>
-        <p className="text-sm text-muted-foreground tracking-wide opacity-80">
+        <p className="text-xs text-white/60 tracking-wide">
           더 S 웨딩홀 1층 컨벤션홀
         </p>
       </motion.div>

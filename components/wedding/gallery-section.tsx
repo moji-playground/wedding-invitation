@@ -1,36 +1,40 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import Image from "next/image"
-import { ChevronLeft, ChevronRight, X } from "lucide-react"
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 const photos = [
-  { src: "/images/couple-1.jpg", alt: "커플 사진 1" },
-  { src: "/images/couple-2.jpg", alt: "커플 사진 2" },
-  { src: "/images/couple-3.jpg", alt: "커플 사진 3" },
-]
+  { src: "/images/photo1.jpeg", alt: "커플 사진 1", position: "object-center" },
+  { src: "/images/photo2.jpeg", alt: "커플 사진 2", position: "object-center" },
+  { src: "/images/photo3.jpeg", alt: "커플 사진 3", position: "object-center" },
+  { src: "/images/photo4.jpeg", alt: "커플 사진 4", position: "object-center" },
+  { src: "/images/photo5.jpeg", alt: "커플 사진 5", position: "object-right" },
+  { src: "/images/photo6.jpeg", alt: "커플 사진 6", position: "object-center" },
+];
 
 export function GallerySection() {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isOpen, setIsOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("opacity-100", "translate-y-0")
-          entry.target.classList.remove("opacity-0", "translate-y-6")
+          entry.target.classList.add("opacity-100", "translate-y-0");
+          entry.target.classList.remove("opacity-0", "translate-y-6");
         }
       },
-      { threshold: 0.2 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
+      { threshold: 0.2 },
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
 
-  const nextPhoto = () => setCurrentIndex((i) => (i + 1) % photos.length)
-  const prevPhoto = () => setCurrentIndex((i) => (i - 1 + photos.length) % photos.length)
+  const nextPhoto = () => setCurrentIndex((i) => (i + 1) % photos.length);
+  const prevPhoto = () =>
+    setCurrentIndex((i) => (i - 1 + photos.length) % photos.length);
 
   return (
     <>
@@ -49,7 +53,7 @@ export function GallerySection() {
               src={photos[currentIndex].src}
               alt={photos[currentIndex].alt}
               fill
-              className="object-cover cursor-pointer transition-transform duration-500"
+              className={`object-cover cursor-pointer transition-transform duration-500 ${photos[currentIndex].position}`}
               onClick={() => setIsOpen(true)}
             />
 
@@ -82,7 +86,12 @@ export function GallerySection() {
                 }`}
                 aria-label={`사진 ${i + 1} 보기`}
               >
-                <Image src={photo.src} alt={photo.alt} fill className="object-cover" />
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  className="object-cover"
+                />
               </button>
             ))}
           </div>
@@ -110,11 +119,11 @@ export function GallerySection() {
               src={photos[currentIndex].src}
               alt={photos[currentIndex].alt}
               fill
-              className="object-cover"
+              className={`object-cover ${photos[currentIndex].position}`}
             />
           </div>
         </div>
       )}
     </>
-  )
+  );
 }

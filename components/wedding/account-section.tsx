@@ -122,9 +122,9 @@ export function AccountSection() {
         </div>
 
         <p className="text-sm text-muted-foreground text-center leading-relaxed">
-          참석이 어려우신 분들을 위해
+          축하의 마음을 전해주시고 싶은 분들께
           <br />
-          계좌번호를 안내드립니다.
+          안내드립니다.
         </p>
 
         <div className="w-full max-w-sm flex flex-col gap-3">

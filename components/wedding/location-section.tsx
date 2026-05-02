@@ -88,7 +88,7 @@ export function LocationSection() {
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-1.5 group"
               >
-                <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center group-hover:-translate-y-1 transition-transform overflow-hidden">
+                <div className="w-12 h-12 rounded-full bg-white flex items-center [outline:1px_solid_hsl(var(--border)/0.4)] justify-center group-hover:-translate-y-1 transition-transform overflow-hidden">
                   <Image
                     src="/images/icons/tmap.png"
                     alt="티맵"
@@ -145,7 +145,7 @@ export function LocationSection() {
                 type="button"
                 className="cursor-pointer flex flex-col items-center gap-1.5 group"
               >
-                <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center group-hover:-translate-y-1 transition-transform overflow-hidden">
+                <div className="w-12 h-12 rounded-full bg-white flex items-center [outline:1px_solid_hsl(var(--border)/0.4)] justify-center group-hover:-translate-y-1 transition-transform overflow-hidden">
                   <Image
                     src="/images/icons/kakaonavi.png"
                     alt="카카오내비"
@@ -164,7 +164,7 @@ export function LocationSection() {
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-1.5 group"
               >
-                <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center group-hover:-translate-y-1 transition-transform overflow-hidden">
+                <div className="w-12 h-12 rounded-full bg-white flex items-center [outline:1px_solid_hsl(var(--border)/0.4)] justify-center group-hover:-translate-y-1 transition-transform overflow-hidden">
                   <Image
                     src="/images/icons/navermap.png"
                     alt="네이버지도"
@@ -183,7 +183,7 @@ export function LocationSection() {
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-1.5 group"
               >
-                <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center group-hover:-translate-y-1 transition-transform overflow-hidden">
+                <div className="w-12 h-12 rounded-full bg-white flex items-center [outline:1px_solid_hsl(var(--border)/0.4)] justify-center group-hover:-translate-y-1 transition-transform overflow-hidden">
                   <Image
                     src="/images/icons/kakaomap.png"
                     alt="카카오맵"
@@ -357,10 +357,19 @@ function KakaoMap() {
         style={{ width: "100%", height: "100%" }}
         level={3}
       >
-        <CustomOverlayMap position={position} yAnchor={1}>
+        <CustomOverlayMap position={position} yAnchor={1.3}>
           <div className="flex flex-col items-center">
+            {/* 말풍선 라벨 */}
+            <div className="relative mb-2">
+              <div className="bg-foreground text-background text-[10px] font-medium px-2.5 py-1 whitespace-nowrap shadow-md">
+                더 S 웨딩홀
+              </div>
+              {/* 꼬리 */}
+              <div className="absolute left-1/2 -translate-x-1/2 -bottom-1.5 w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[6px] border-t-foreground" />
+            </div>
+            {/* 마커 핀 */}
             <div className="relative flex flex-col items-center">
-              <div className="absolute top-2 w-8 h-8 bg-rose-400 rounded-full animate-ping opacity-25" />
+              <div className="absolute top-2 w-8 h-8 bg-neutral-400 rounded-full animate-ping opacity-25 [animation-duration:2s]" />
               <div className="relative z-10">
                 <svg
                   width="30"
@@ -370,18 +379,14 @@ function KakaoMap() {
                 >
                   <path
                     d="M18 0C8.05882 0 0 8.05882 0 18C0 23.5 6 32 18 44C30 32 36 23.5 36 18C36 8.05882 27.9412 0 18 0Z"
-                    fill="#f27489ff"
-                    stroke="white"
-                    strokeWidth="2"
+                    fill="#333333"
+                    stroke="none"
                   />
                   <foreignObject x="10" y="10" width="20" height="20">
                     <Heart className="w-4 h-4 text-white fill-white" />
                   </foreignObject>
                 </svg>
               </div>
-            </div>
-            <div className="bg-white/95 backdrop-blur-sm px-2 py-0.5 rounded-full shadow-lg mt-1 text-[10px] font-medium border-2 border-rose-200 whitespace-nowrap">
-              더 S 웨딩홀
             </div>
           </div>
         </CustomOverlayMap>

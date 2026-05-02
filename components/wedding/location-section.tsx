@@ -212,28 +212,60 @@ function TransportAccordion() {
     {
       icon: <Train className="w-4 h-4" />,
       title: "지하철 이용시",
-      lines: [
-        "2호선 문현역 2번 출구, 4번 출구",
-        "부산역에서 오실 경우: 1호선 탑승 → 서면역 하차 → 2호선 환승 → 문현역 하차",
-      ],
+      content: (
+        <div className="flex flex-col gap-3">
+          <p className="text-sm text-muted-foreground">
+            2호선 문현역 2번 출구, 4번 출구
+          </p>
+          <div className="flex flex-col gap-0.5">
+            <p className="text-[11px] text-muted-foreground font-semibold tracking-wide uppercase">
+              부산역에서 오실 경우
+            </p>
+            <p className="text-sm text-muted-foreground">
+              1호선 탑승 → 서면역 하차 → 2호선 환승 → 문현역 하차
+            </p>
+          </div>
+        </div>
+      ),
     },
     {
       icon: <Bus className="w-4 h-4" />,
       title: "시내버스 이용시",
-      lines: [
-        "24번 → 문현 삼성아파트 하차",
-        "10, 22, 24, 27, 40, 41, 42, 68, 83, 83-1, 101, 108, 138, 168번 → 문현교차로 하차 도보 300m",
-      ],
+      content: (
+        <div className="flex flex-col gap-3">
+          <div className="text-sm text-muted-foreground">
+            <p>24번</p>
+            <p>→ 문현 삼성아파트 하차</p>
+          </div>
+          <div className="text-sm text-muted-foreground">
+            <p>10, 22, 24, 27, 40, 41, 42,</p>
+            <p>68, 83, 83-1, 101, 108, 138, 168번</p>
+            <p>→ 문현교차로 하차 (도보 300m)</p>
+          </div>
+        </div>
+      ),
     },
     {
       icon: <Car className="w-4 h-4" />,
       title: "승용차 이용시",
-      desc: "서울, 대구 출발 → 부산 도시고속도로 → 문현램프에서 내려 우회전 후 50m 직진",
+      content: (
+        <div className="text-sm text-muted-foreground">
+          <p>서울·대구 출발</p>
+          <p>→ 부산 도시고속도로</p>
+          <p>→ 문현램프 우회전 후 50m 직진</p>
+        </div>
+      ),
     },
     {
       icon: <ParkingCircle className="w-4 h-4" />,
       title: "주차장 이용시",
-      desc: "삼성힐타워 아파트 지하1층 주차장 (지하철 4번 출구 지나서 우회전)",
+      content: (
+        <p className="text-sm text-muted-foreground">
+          삼성힐타워 아파트 지하1층 주차장
+          <br />
+          (지하철 4번 출구 지나서 우회전)
+        </p>
+      ),
     },
   ];
 
@@ -249,13 +281,11 @@ function TransportAccordion() {
 function TransportItem({
   icon,
   title,
-  desc,
-  lines,
+  content,
 }: {
   icon: React.ReactNode;
   title: string;
-  desc?: string;
-  lines?: string[];
+  content: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -277,25 +307,7 @@ function TransportItem({
         className={`grid transition-all duration-500 ease-in-out ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
       >
         <div className="overflow-hidden">
-          <div className="px-5 pb-4">
-            {desc && (
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {desc}
-              </p>
-            )}
-            {lines && (
-              <div className="flex flex-col gap-1">
-                {lines.map((line, i) => (
-                  <p
-                    key={i}
-                    className="text-sm text-muted-foreground leading-relaxed"
-                  >
-                    {line}
-                  </p>
-                ))}
-              </div>
-            )}
-          </div>
+          <div className="px-5 pb-4 leading-relaxed">{content}</div>
         </div>
       </div>
     </div>

@@ -377,7 +377,7 @@ function KakaoMap() {
         level={level}
         onZoomChanged={(map) => setLevel(map.getLevel())}
       >
-        <CustomOverlayMap position={position} yAnchor={1.3}>
+        <CustomOverlayMap position={position} yAnchor={1}>
           <div className="flex flex-col items-center">
             {/* 말풍선 라벨 */}
             <div className="relative mb-2">

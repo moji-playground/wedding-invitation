@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Copy, Check, ChevronDown, ChevronUp } from "lucide-react";
+import { Copy, Check, ChevronDown } from "lucide-react";
 
 interface AccountInfo {
   relation: string;
@@ -11,16 +11,21 @@ interface AccountInfo {
 }
 
 const groomAccounts: AccountInfo[] = [
-  { relation: "신랑", bank: "신한", number: "110531015046", holder: "정현모" },
+  {
+    relation: "신랑",
+    bank: "신한은행",
+    number: "110531015046",
+    holder: "정현모",
+  },
   {
     relation: "신랑 아버지",
-    bank: "농협",
+    bank: "농협은행",
     number: "3123566978511",
     holder: "정원봉",
   },
   {
     relation: "신랑 어머니",
-    bank: "국민",
+    bank: "국민은행",
     number: "67470104276652",
     holder: "임금미",
   },
@@ -29,27 +34,62 @@ const groomAccounts: AccountInfo[] = [
 const brideAccounts: AccountInfo[] = [
   {
     relation: "신부",
-    bank: "국민",
+    bank: "국민은행",
     number: "107010558441",
     holder: "김은지",
   },
   {
     relation: "신부 아버지",
-    bank: "국민",
+    bank: "국민은행",
     number: "107240210605",
     holder: "김태훈",
   },
   {
     relation: "신부 어머니",
-    bank: "국민",
+    bank: "국민은행",
     number: "111240294031",
     holder: "박인숙",
   },
 ];
 
+interface AccordionCardProps {
+  title: string;
+  accounts: AccountInfo[];
+}
+
+function AccordionCard({ title, accounts }: AccordionCardProps) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="overflow-hidden border border-border/60 rounded-2xl">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between px-5 py-4"
+      >
+        <span className="text-sm font-medium tracking-wide text-foreground">
+          {title}
+        </span>
+        <ChevronDown
+          className={`w-4 h-4 text-muted-foreground transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      <div
+        className={`grid transition-all duration-500 ease-in-out ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+      >
+        <div className="overflow-hidden">
+          <div className="px-5 pb-5 flex flex-col gap-0 divide-y divide-border/30">
+            {accounts.map((account) => (
+              <AccountRow key={account.relation} account={account} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function AccountSection() {
-  const [groomOpen, setGroomOpen] = useState(false);
-  const [brideOpen, setBrideOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -72,68 +112,24 @@ export function AccountSection() {
         ref={ref}
         className="flex flex-col items-center gap-8 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
       >
-        <h2 className="font-serif text-lg tracking-wide text-primary font-medium">
-          마음 전하실 곳
-        </h2>
+        <div className="flex flex-col items-center gap-1">
+          <p className="text-xs tracking-[0.3em] text-muted-foreground uppercase">
+            Account
+          </p>
+          <h2 className="font-serif text-lg tracking-wide text-foreground font-medium">
+            마음 전하실 곳
+          </h2>
+        </div>
 
-        <p className="text-sm text-muted-foreground text-center leading-relaxed max-w-xs">
+        <p className="text-sm text-muted-foreground text-center leading-relaxed">
           참석이 어려우신 분들을 위해
           <br />
           계좌번호를 안내드립니다.
         </p>
 
         <div className="w-full max-w-sm flex flex-col gap-3">
-          {/* Groom side */}
-          <div className="bg-card rounded-2xl border border-border/50 overflow-hidden transition-all duration-500">
-            <button
-              onClick={() => setGroomOpen(!groomOpen)}
-              className="w-full flex items-center justify-between px-6 py-4 text-sm font-medium text-foreground"
-            >
-              <span>신랑측 계좌번호</span>
-              {groomOpen ? (
-                <ChevronUp className="w-4 h-4 text-muted-foreground" />
-              ) : (
-                <ChevronDown className="w-4 h-4 text-muted-foreground" />
-              )}
-            </button>
-            <div
-              className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                groomOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-              }`}
-            >
-              <div className="px-6 pb-4 flex flex-col gap-3">
-                {groomAccounts.map((account) => (
-                  <AccountRow key={account.relation} account={account} />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Bride side */}
-          <div className="bg-card rounded-2xl border border-border/50 overflow-hidden transition-all duration-500">
-            <button
-              onClick={() => setBrideOpen(!brideOpen)}
-              className="w-full flex items-center justify-between px-6 py-4 text-sm font-medium text-foreground"
-            >
-              <span>신부측 계좌번호</span>
-              {brideOpen ? (
-                <ChevronUp className="w-4 h-4 text-muted-foreground" />
-              ) : (
-                <ChevronDown className="w-4 h-4 text-muted-foreground" />
-              )}
-            </button>
-            <div
-              className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                brideOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-              }`}
-            >
-              <div className="px-6 pb-4 flex flex-col gap-3">
-                {brideAccounts.map((account) => (
-                  <AccountRow key={account.relation} account={account} />
-                ))}
-              </div>
-            </div>
-          </div>
+          <AccordionCard title="신랑측 계좌번호" accounts={groomAccounts} />
+          <AccordionCard title="신부측 계좌번호" accounts={brideAccounts} />
         </div>
       </div>
     </section>
@@ -154,23 +150,31 @@ function AccountRow({ account }: { account: AccountInfo }) {
   };
 
   return (
-    <div className="flex items-center justify-between py-2 border-b border-border/30 last:border-0">
-      <div>
-        <p className="text-xs text-muted-foreground">{account.relation}</p>
-        <p className="text-sm text-foreground mt-0.5">
+    <div className="flex items-center justify-between py-3.5">
+      <div className="flex flex-col gap-0.5">
+        <p className="text-[11px] text-muted-foreground tracking-wide">
+          {account.relation}
+        </p>
+        <p className="text-sm font-medium text-foreground">{account.holder}</p>
+        <p className="text-xs text-muted-foreground">
           {account.bank} {account.number}
         </p>
-        <p className="text-xs text-muted-foreground mt-0.5">{account.holder}</p>
       </div>
       <button
         onClick={handleCopy}
-        className="shrink-0 w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-secondary-foreground hover:bg-secondary/70 transition-colors"
+        className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border/60 text-xs text-muted-foreground hover:border-foreground/30 hover:text-foreground transition-colors"
         aria-label={`${account.bank} 계좌번호 복사`}
       >
         {copied ? (
-          <Check className="w-3.5 h-3.5" />
+          <>
+            <Check className="w-3 h-3" />
+            <span>복사됨</span>
+          </>
         ) : (
-          <Copy className="w-3.5 h-3.5" />
+          <>
+            <Copy className="w-3 h-3" />
+            <span>복사</span>
+          </>
         )}
       </button>
     </div>

@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import { Share2, Link, Check, MoreHorizontal } from "lucide-react";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerHeader,
@@ -14,6 +13,7 @@ import {
 
 declare global {
   interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Kakao: any;
   }
 }
@@ -99,16 +99,16 @@ export function ShareSection() {
   };
 
   return (
-    <section className="px-6 py-16">
+    <section className="px-6 py-10">
       <div
         ref={ref}
-        className="flex flex-col items-center gap-6 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+        className="flex flex-col items-center gap-4 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
       >
         <Drawer>
           <DrawerTrigger asChild>
-            <button className="flex items-center gap-3 px-8 py-3.5 rounded-full bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-all active:scale-95 shadow-sm">
+            <button className="w-full max-w-sm flex items-center justify-center gap-2.5 py-4 rounded-2xl border border-foreground/20 text-foreground/80 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.03] transition-all active:scale-[0.98]">
               <Share2 className="w-4 h-4" />
-              <span className="text-sm font-medium tracking-wide">
+              <span className="text-sm font-medium tracking-widest">
                 초대장 공유하기
               </span>
             </button>
@@ -149,7 +149,7 @@ export function ShareSection() {
                 >
                   <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center shadow-sm group-hover:-translate-y-1 transition-transform group-active:scale-95 duration-200">
                     {copied ? (
-                      <Check className="w-6 h-6 text-primary" />
+                      <Check className="w-6 h-6 text-foreground/70" />
                     ) : (
                       <Link className="w-6 h-6 text-foreground/70" />
                     )}

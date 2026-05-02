@@ -19,8 +19,8 @@ export default function WeddingInvitationPage() {
       <SectionDivider />
       <GreetingSection />
       <SectionDivider />
-      {/* <GallerySection />
-      <SectionDivider /> */}
+      <GallerySection />
+      <SectionDivider />
       <CalendarSection />
       <SectionDivider />
       <LocationSection />

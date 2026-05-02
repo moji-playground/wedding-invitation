@@ -61,7 +61,7 @@ function AccordionCard({ title, accounts }: AccordionCardProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="overflow-hidden border border-border/60 rounded-2xl">
+    <div className="overflow-hidden border border-border/60">
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between px-5 py-4"

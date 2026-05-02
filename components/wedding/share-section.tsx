@@ -105,7 +105,7 @@ export function ShareSection() {
       >
         <Drawer>
           <DrawerTrigger asChild>
-            <button className="w-full max-w-sm flex items-center justify-center gap-2.5 py-4 rounded-2xl border border-foreground/20 text-foreground/80 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.03] transition-all active:scale-[0.98]">
+            <button className="w-full max-w-sm flex items-center justify-center gap-2.5 py-4 border border-foreground/20 text-foreground/80 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.03] transition-all active:scale-[0.98]">
               <Share2 className="w-4 h-4" />
               <span className="text-sm font-medium tracking-widest">
                 초대장 공유하기

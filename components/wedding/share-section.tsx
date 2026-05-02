@@ -5,7 +5,6 @@ import { Share2, Link, Check, MoreHorizontal } from "lucide-react";
 import {
   Drawer,
   DrawerContent,
-  DrawerDescription,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -119,9 +118,6 @@ export function ShareSection() {
                 <DrawerTitle className="font-serif text-xl tracking-wide">
                   공유하기
                 </DrawerTitle>
-                <DrawerDescription className="text-xs">
-                  소중한 분들께 초대장을 전해보세요
-                </DrawerDescription>
               </DrawerHeader>
               <div className="p-6 pb-12 flex items-start justify-center gap-8">
                 {/* Kakao Share */}

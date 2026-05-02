@@ -26,41 +26,44 @@ export function PhotoboothSection() {
         ref={ref}
         className="flex flex-col items-center gap-6 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
       >
-        <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
-          <Camera className="w-6 h-6 text-primary" />
+        <Camera className="w-5 h-5 text-muted-foreground" />
+
+        <div className="flex flex-col items-center gap-1">
+          <p className="text-xs tracking-[0.3em] text-muted-foreground uppercase">
+            Photobooth
+          </p>
+          <h2 className="font-serif text-lg tracking-wide text-foreground font-medium">
+            포토 부스
+          </h2>
         </div>
 
-        <h2 className="font-serif text-lg tracking-wide text-primary font-medium">
-          Photo Booth
-        </h2>
-
-        <div className="bg-card rounded-2xl p-6 border border-border/50 shadow-sm max-w-sm w-full text-center flex flex-col gap-4">
-          <p className="font-serif text-base text-foreground/80 leading-relaxed">
-            결혼식장에 포토부스가 준비되어 있습니다.
-            <br />
-            소중한 순간을 사진으로 남겨주세요!
-          </p>
-
-          <div className="flex items-center justify-center gap-3">
-            <div className="h-px flex-1 bg-border" />
-            <span className="text-xs text-muted-foreground tracking-wide">
+        <div className="bg-card border border-border/50 max-w-sm w-full flex flex-col">
+          {/* 이용 시간 */}
+          <div className="px-6 py-5 border-b border-border/50 flex items-center justify-between">
+            <p className="text-xs text-muted-foreground tracking-wide">
               이용 시간
-            </span>
-            <div className="h-px flex-1 bg-border" />
+            </p>
+            <div className="text-right">
+              <p className="font-serif text-xl font-medium text-foreground tracking-wide">
+                11:30 ~ 12:30
+              </p>
+              <p className="text-[11px] text-muted-foreground mt-0.5">
+                예식 시작 1시간 전부터 이용 가능합니다
+              </p>
+            </div>
           </div>
 
-          <div className="bg-secondary/60 rounded-xl py-4 px-6">
-            <p className="text-2xl font-serif font-medium text-foreground tracking-wide">
-              11:30 ~ 12:30
+          {/* 안내 문구 */}
+          <div className="px-6 py-5">
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              추억을 나누고 싶어 포토부스를 준비했습니다.
             </p>
-            <p className="text-xs text-muted-foreground mt-1">
-              예식 시작 1시간 전부터 이용 가능합니다
+            <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+              사진은 두 장이 출력되며, 한 장은 오늘의 기억으로 간직하실 수
+              있고, 포토 방명록도 옆에 마련되어 있으니 사진 한 장과 함께
+              축하의 마음을 담아주시면 더없이 감사하겠습니다.
             </p>
           </div>
-
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            하객 여러분 모두 자유롭게 이용해 주세요
-          </p>
         </div>
       </div>
     </section>

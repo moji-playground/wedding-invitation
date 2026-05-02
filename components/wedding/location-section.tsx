@@ -321,6 +321,7 @@ function KakaoMap() {
   const [position, setPosition] = useState<{ lat: number; lng: number } | null>(
     null,
   );
+  const [level, setLevel] = useState(3);
   const address = "부산 남구 전포대로 26 삼성힐타워상가 1층";
 
   useEffect(() => {
@@ -344,18 +345,18 @@ function KakaoMap() {
 
   if (!position) {
     return (
-      <div className="w-full aspect-[16/9] bg-muted flex items-center justify-center text-sm text-muted-foreground animate-pulse">
+      <div className="w-full aspect-[3/2] bg-muted flex items-center justify-center text-sm text-muted-foreground animate-pulse">
         위치 정보 로드 중...
       </div>
     );
   }
 
   return (
-    <div className="w-full aspect-[16/9] overflow-hidden relative">
+    <div className="w-full aspect-[3/2] overflow-hidden relative">
       <Map
         center={position}
         style={{ width: "100%", height: "100%" }}
-        level={3}
+        level={level}
       >
         <CustomOverlayMap position={position} yAnchor={1.3}>
           <div className="flex flex-col items-center">
@@ -391,6 +392,23 @@ function KakaoMap() {
           </div>
         </CustomOverlayMap>
       </Map>
+      {/* 커스텀 줌 버튼 */}
+      <div className="absolute top-2 right-2 z-10 flex flex-col">
+        <button
+          onClick={() => setLevel((l) => Math.max(1, l - 1))}
+          className="w-7 h-7 bg-white/90 backdrop-blur-sm flex items-center justify-center text-foreground text-sm border-b border-border/30 hover:bg-white transition-colors"
+          aria-label="확대"
+        >
+          +
+        </button>
+        <button
+          onClick={() => setLevel((l) => Math.min(14, l + 1))}
+          className="w-7 h-7 bg-white/90 backdrop-blur-sm flex items-center justify-center text-foreground text-sm hover:bg-white transition-colors"
+          aria-label="축소"
+        >
+          −
+        </button>
+      </div>
     </div>
   );
 }

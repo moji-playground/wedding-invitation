@@ -200,6 +200,9 @@ export function LocationSection() {
           </div>
 
           {/* Transportation */}
+          <p className="text-xs text-muted-foreground text-center">
+            주차 공간이 넉넉하지 않아 대중교통을 추천드려요.
+          </p>
           <TransportAccordion />
         </div>
       </div>

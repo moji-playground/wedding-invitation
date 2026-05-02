@@ -322,6 +322,9 @@ function KakaoMap() {
     null,
   );
   const [level, setLevel] = useState(3);
+  const [center, setCenter] = useState<{ lat: number; lng: number } | null>(
+    null,
+  );
   const address = "부산 남구 전포대로 26 삼성힐타워상가 1층";
 
   useEffect(() => {
@@ -334,29 +337,45 @@ function KakaoMap() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       geocoder.addressSearch(address, (result: any, status: any) => {
         if (status === kakao.maps.services.Status.OK) {
-          setPosition({
+          const pos = {
             lat: parseFloat(result[0].y),
             lng: parseFloat(result[0].x),
-          });
+          };
+          setPosition(pos);
+          setCenter(pos);
         }
       });
     });
   }, []);
 
-  if (!position) {
+  const handleReset = () => {
+    if (position) {
+      setCenter({ ...position });
+      setLevel(3);
+    }
+  };
+
+  if (!position || !center) {
     return (
-      <div className="w-full aspect-[3/2] bg-muted flex items-center justify-center text-sm text-muted-foreground animate-pulse">
+      <div className="w-full aspect-3/2 bg-muted flex items-center justify-center text-sm text-muted-foreground animate-pulse">
         위치 정보 로드 중...
       </div>
     );
   }
 
   return (
-    <div className="w-full aspect-[3/2] overflow-hidden relative">
+    <div className="w-full aspect-3/2 overflow-hidden relative">
       <Map
-        center={position}
+        center={center}
+        onCenterChanged={(map) =>
+          setCenter({
+            lat: map.getCenter().getLat(),
+            lng: map.getCenter().getLng(),
+          })
+        }
         style={{ width: "100%", height: "100%" }}
         level={level}
+        onZoomChanged={(map) => setLevel(map.getLevel())}
       >
         <CustomOverlayMap position={position} yAnchor={1.3}>
           <div className="flex flex-col items-center">
@@ -370,7 +389,7 @@ function KakaoMap() {
             </div>
             {/* 마커 핀 */}
             <div className="relative flex flex-col items-center">
-              <div className="absolute top-2 w-8 h-8 bg-neutral-400 rounded-full animate-ping opacity-25 [animation-duration:2s]" />
+              <div className="absolute top-2 w-8 h-8 bg-neutral-400 rounded-full animate-ping opacity-25 animation-duration-[2s]" />
               <div className="relative z-10">
                 <svg
                   width="30"
@@ -392,7 +411,7 @@ function KakaoMap() {
           </div>
         </CustomOverlayMap>
       </Map>
-      {/* 커스텀 줌 버튼 */}
+      {/* 커스텀 줌 + 초기화 버튼 */}
       <div className="absolute top-2 right-2 z-10 flex flex-col">
         <button
           onClick={() => setLevel((l) => Math.max(1, l - 1))}
@@ -403,10 +422,29 @@ function KakaoMap() {
         </button>
         <button
           onClick={() => setLevel((l) => Math.min(14, l + 1))}
-          className="w-7 h-7 bg-white/90 backdrop-blur-sm flex items-center justify-center text-foreground text-sm hover:bg-white transition-colors"
+          className="w-7 h-7 bg-white/90 backdrop-blur-sm flex items-center justify-center text-foreground text-sm border-b border-border/30 hover:bg-white transition-colors"
           aria-label="축소"
         >
           −
+        </button>
+        <button
+          onClick={handleReset}
+          className="w-7 h-7 bg-white/90 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-white transition-colors"
+          aria-label="위치 초기화"
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
         </button>
       </div>
     </div>

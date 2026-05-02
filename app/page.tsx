@@ -1,7 +1,9 @@
 import { HeroSection } from "@/components/wedding/hero-section";
 import { BackgroundEffects } from "@/components/wedding/background-effects";
 import { GreetingSection } from "@/components/wedding/greeting-section";
-import { GallerySection } from "@/components/wedding/gallery-section";
+import { GallerySectionA } from "@/components/wedding/gallery-section-a";
+import { GallerySectionC } from "@/components/wedding/gallery-section-c";
+import { GallerySectionD } from "@/components/wedding/gallery-section-d";
 import { CalendarSection } from "@/components/wedding/calendar-section";
 import { LocationSection } from "@/components/wedding/location-section";
 import { PhotoboothSection } from "@/components/wedding/photobooth-section";
@@ -19,7 +21,11 @@ export default function WeddingInvitationPage() {
       <SectionDivider />
       <GreetingSection />
       <SectionDivider />
-      <GallerySection />
+      <GallerySectionA />
+      <SectionDivider />
+      <GallerySectionC />
+      <SectionDivider />
+      <GallerySectionD />
       <SectionDivider />
       <CalendarSection />
       <SectionDivider />

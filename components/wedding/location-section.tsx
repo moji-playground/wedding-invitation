@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { MapPin, Car, Train, Bus, ParkingCircle, Phone } from "lucide-react";
+import { Map, CustomOverlayMap } from "react-kakao-maps-sdk";
+import { Heart } from "lucide-react";
 
 export function LocationSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -27,15 +29,20 @@ export function LocationSection() {
         ref={ref}
         className="flex flex-col items-center gap-8 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
       >
-        <h2 className="font-serif text-lg tracking-wide text-primary font-medium">
-          오시는 길
-        </h2>
+        <div className="flex flex-col items-center gap-1">
+          <p className="text-xs tracking-[0.3em] text-muted-foreground uppercase">
+            Location
+          </p>
+          <h2 className="font-serif text-lg tracking-wide text-foreground font-medium">
+            오시는 길
+          </h2>
+        </div>
 
         <div className="w-full max-w-sm flex flex-col gap-4">
           {/* Venue info */}
-          <div className="bg-card rounded-2xl p-6 border border-border/50 shadow-sm">
+          <div className="bg-card p-6 border border-border/50">
             <div className="flex items-start gap-3">
-              <MapPin className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+              <MapPin className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
               <div>
                 <h3 className="font-serif text-base font-medium text-foreground mb-1">
                   더 S 웨딩홀 1층 컨벤션홀
@@ -60,8 +67,8 @@ export function LocationSection() {
               </div>
             </div>
 
-            {/* Map embed - Kakao Map */}
-            <div className="mt-4 w-full aspect-[16/9] rounded-xl overflow-hidden bg-muted relative">
+            {/* Map embed */}
+            <div className="mt-4 w-full aspect-[16/9] overflow-hidden bg-muted relative">
               <KakaoMap />
             </div>
 
@@ -89,6 +96,7 @@ export function LocationSection() {
               <button
                 onClick={() => {
                   try {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     const kakao = (window as any).Kakao;
                     if (kakao) {
                       if (!kakao.isInitialized()) {
@@ -100,7 +108,6 @@ export function LocationSection() {
                       );
 
                       if (isMobile && kakao.Navi) {
-                        // 모바일에서는 카카오내비 목적지 공유(검색 화면) 앱 실행
                         kakao.Navi.share({
                           name: "더 S 웨딩홀",
                           x: 129.0664,
@@ -108,14 +115,12 @@ export function LocationSection() {
                           coordType: "wgs84",
                         });
                       } else {
-                        // PC 등 모바일이 아닌 경우 카카오맵 웹 길찾기로 우회
                         window.open(
                           "https://map.kakao.com/link/to/더%20S%20웨딩홀,35.1432,129.0664",
                           "_blank",
                         );
                       }
                     } else {
-                      // SDK 로드 실패 시 일반 카카오맵 링크로 백업 이동
                       window.open(
                         "https://map.kakao.com/link/to/더%20S%20웨딩홀,35.1432,129.0664",
                         "_blank",
@@ -187,27 +192,27 @@ export function LocationSection() {
           </div>
 
           {/* Transportation */}
-          <div className="bg-card rounded-2xl p-6 border border-border/50 shadow-sm flex flex-col gap-5">
+          <div className="bg-card p-6 border border-border/50 flex flex-col gap-5">
             <TransportItem
               icon={<Train className="w-4 h-4" />}
               title="지하철 이용시"
               lines={[
                 "2호선 문현역 2번 출구, 4번 출구",
-                "부산역에서 오실 경우: 1호선 탑승 -> 서면역 하차 -> 2호선 환승 -> 문현역 하차",
+                "부산역에서 오실 경우: 1호선 탑승 → 서면역 하차 → 2호선 환승 → 문현역 하차",
               ]}
             />
             <TransportItem
               icon={<Bus className="w-4 h-4" />}
               title="시내버스 이용시"
               lines={[
-                "24번 -> 문현 삼성아파트 하차",
-                "10, 22, 24, 27, 40, 41, 42, 68, 83, 83-1, 101, 108, 138, 168번 -> 문현교차로 하차 도보 300m",
+                "24번 → 문현 삼성아파트 하차",
+                "10, 22, 24, 27, 40, 41, 42, 68, 83, 83-1, 101, 108, 138, 168번 → 문현교차로 하차 도보 300m",
               ]}
             />
             <TransportItem
               icon={<Car className="w-4 h-4" />}
               title="승용차 이용시"
-              desc="서울, 대구 출발 -> 부산 도시고속도로 -> 문현램프에서 내려 우회전후 50m 직진"
+              desc="서울, 대구 출발 → 부산 도시고속도로 → 문현램프에서 내려 우회전 후 50m 직진"
             />
             <TransportItem
               icon={<ParkingCircle className="w-4 h-4" />}
@@ -234,7 +239,7 @@ function TransportItem({
 }) {
   return (
     <div className="flex items-start gap-3">
-      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
+      <div className="w-7 h-7 flex items-center justify-center text-muted-foreground shrink-0 mt-0.5">
         {icon}
       </div>
       <div className="flex-1 min-w-0">
@@ -261,10 +266,6 @@ function TransportItem({
   );
 }
 
-import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
-import { useState } from "react";
-import { Heart } from "lucide-react";
-
 function KakaoMap() {
   const [position, setPosition] = useState<{ lat: number; lng: number } | null>(
     null,
@@ -272,11 +273,13 @@ function KakaoMap() {
   const address = "부산 남구 전포대로 26 삼성힐타워상가 1층";
 
   useEffect(() => {
-    const kakao = window.kakao;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const kakao = (window as any).kakao;
     if (!kakao || !kakao.maps) return;
 
     kakao.maps.load(() => {
       const geocoder = new kakao.maps.services.Geocoder();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       geocoder.addressSearch(address, (result: any, status: any) => {
         if (status === kakao.maps.services.Status.OK) {
           setPosition({
@@ -290,28 +293,24 @@ function KakaoMap() {
 
   if (!position) {
     return (
-      <div className="w-full aspect-[16/9] bg-muted rounded-xl flex items-center justify-center text-sm text-muted-foreground animate-pulse">
+      <div className="w-full aspect-[16/9] bg-muted flex items-center justify-center text-sm text-muted-foreground animate-pulse">
         위치 정보 로드 중...
       </div>
     );
   }
 
   return (
-    <div className="w-full aspect-[16/9] rounded-xl overflow-hidden relative shadow-inner">
+    <div className="w-full aspect-[16/9] overflow-hidden relative">
       <Map
         center={position}
         style={{ width: "100%", height: "100%" }}
-        level={3} // 조금 더 확대해서 상세히 보이게 수정
+        level={3}
       >
         <CustomOverlayMap position={position} yAnchor={1}>
           <div className="flex flex-col items-center">
-            {/* Integrated Seamless Pin Shape */}
-            <div className="relative flex flex-col items-center group">
-              {/* Ping animation effect */}
+            <div className="relative flex flex-col items-center">
               <div className="absolute top-2 w-8 h-8 bg-rose-400 rounded-full animate-ping opacity-25" />
-
               <div className="relative z-10">
-                {/* SVG Pin Shape (Integrated) */}
                 <svg
                   width="30"
                   height="38"
@@ -320,7 +319,7 @@ function KakaoMap() {
                 >
                   <path
                     d="M18 0C8.05882 0 0 8.05882 0 18C0 23.5 6 32 18 44C30 32 36 23.5 36 18C36 8.05882 27.9412 0 18 0Z"
-                    fill="#f27489ff" // rose-500
+                    fill="#f27489ff"
                     stroke="white"
                     strokeWidth="2"
                   />
@@ -330,8 +329,6 @@ function KakaoMap() {
                 </svg>
               </div>
             </div>
-
-            {/* Label - More compact and clean */}
             <div className="bg-white/95 backdrop-blur-sm px-2 py-0.5 rounded-full shadow-lg mt-1 text-[10px] font-medium border-2 border-rose-200 whitespace-nowrap">
               더 S 웨딩홀
             </div>

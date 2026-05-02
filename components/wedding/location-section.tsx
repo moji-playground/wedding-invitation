@@ -2,7 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { MapPin, Car, Train, Bus, ParkingCircle, Phone } from "lucide-react";
+import {
+  MapPin,
+  Car,
+  Train,
+  Bus,
+  ParkingCircle,
+  Phone,
+  ChevronDown,
+} from "lucide-react";
 import { Map, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { Heart } from "lucide-react";
 
@@ -192,37 +200,49 @@ export function LocationSection() {
           </div>
 
           {/* Transportation */}
-          <div className="bg-card p-6 border border-border/50 flex flex-col gap-5">
-            <TransportItem
-              icon={<Train className="w-4 h-4" />}
-              title="지하철 이용시"
-              lines={[
-                "2호선 문현역 2번 출구, 4번 출구",
-                "부산역에서 오실 경우: 1호선 탑승 → 서면역 하차 → 2호선 환승 → 문현역 하차",
-              ]}
-            />
-            <TransportItem
-              icon={<Bus className="w-4 h-4" />}
-              title="시내버스 이용시"
-              lines={[
-                "24번 → 문현 삼성아파트 하차",
-                "10, 22, 24, 27, 40, 41, 42, 68, 83, 83-1, 101, 108, 138, 168번 → 문현교차로 하차 도보 300m",
-              ]}
-            />
-            <TransportItem
-              icon={<Car className="w-4 h-4" />}
-              title="승용차 이용시"
-              desc="서울, 대구 출발 → 부산 도시고속도로 → 문현램프에서 내려 우회전 후 50m 직진"
-            />
-            <TransportItem
-              icon={<ParkingCircle className="w-4 h-4" />}
-              title="주차장 이용시"
-              desc="삼성힐타워 아파트 지하1층 주차장 (지하철 4번 출구 지나서 우회전)"
-            />
-          </div>
+          <TransportAccordion />
         </div>
       </div>
     </section>
+  );
+}
+
+function TransportAccordion() {
+  const items = [
+    {
+      icon: <Train className="w-4 h-4" />,
+      title: "지하철 이용시",
+      lines: [
+        "2호선 문현역 2번 출구, 4번 출구",
+        "부산역에서 오실 경우: 1호선 탑승 → 서면역 하차 → 2호선 환승 → 문현역 하차",
+      ],
+    },
+    {
+      icon: <Bus className="w-4 h-4" />,
+      title: "시내버스 이용시",
+      lines: [
+        "24번 → 문현 삼성아파트 하차",
+        "10, 22, 24, 27, 40, 41, 42, 68, 83, 83-1, 101, 108, 138, 168번 → 문현교차로 하차 도보 300m",
+      ],
+    },
+    {
+      icon: <Car className="w-4 h-4" />,
+      title: "승용차 이용시",
+      desc: "서울, 대구 출발 → 부산 도시고속도로 → 문현램프에서 내려 우회전 후 50m 직진",
+    },
+    {
+      icon: <ParkingCircle className="w-4 h-4" />,
+      title: "주차장 이용시",
+      desc: "삼성힐타워 아파트 지하1층 주차장 (지하철 4번 출구 지나서 우회전)",
+    },
+  ];
+
+  return (
+    <div className="border border-border/50 divide-y divide-border/50">
+      {items.map((item) => (
+        <TransportItem key={item.title} {...item} />
+      ))}
+    </div>
   );
 }
 
@@ -237,30 +257,46 @@ function TransportItem({
   desc?: string;
   lines?: string[];
 }) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <div className="flex items-start gap-3">
-      <div className="w-7 h-7 flex items-center justify-center text-muted-foreground shrink-0 mt-0.5">
-        {icon}
-      </div>
-      <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-foreground">{title}</p>
-        {desc && (
-          <p className="text-sm text-muted-foreground mt-0.5 leading-relaxed">
-            {desc}
-          </p>
-        )}
-        {lines && (
-          <div className="flex flex-col gap-1 mt-1">
-            {lines.map((line, i) => (
-              <p
-                key={i}
-                className="text-sm text-muted-foreground leading-relaxed"
-              >
-                {line}
+    <div>
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between px-5 py-4"
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-muted-foreground">{icon}</span>
+          <span className="text-sm font-medium text-foreground">{title}</span>
+        </div>
+        <ChevronDown
+          className={`w-4 h-4 text-muted-foreground transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+      <div
+        className={`grid transition-all duration-500 ease-in-out ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+      >
+        <div className="overflow-hidden">
+          <div className="px-5 pb-4">
+            {desc && (
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {desc}
               </p>
-            ))}
+            )}
+            {lines && (
+              <div className="flex flex-col gap-1">
+                {lines.map((line, i) => (
+                  <p
+                    key={i}
+                    className="text-sm text-muted-foreground leading-relaxed"
+                  >
+                    {line}
+                  </p>
+                ))}
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

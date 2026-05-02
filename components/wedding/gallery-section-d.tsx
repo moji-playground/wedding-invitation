@@ -89,9 +89,6 @@ export function GallerySectionD() {
             <p className="text-xs tracking-[0.3em] text-muted-foreground uppercase">
               Gallery
             </p>
-            <h2 className="font-serif text-lg tracking-wide text-foreground font-medium">
-              D — 비대칭 콜라주
-            </h2>
           </div>
 
           <div className="w-full max-w-sm px-4 flex flex-col gap-1">

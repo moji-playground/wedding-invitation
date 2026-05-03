@@ -30,18 +30,23 @@ export function GreetingSection() {
         </h2>
 
         <p className="font-serif text-base text-foreground/80 leading-[2] max-w-sm">
-          사랑과 신뢰로 한 걸음 한 걸음
+          함께여서 더 빛났던 시간들이
           <br />
-          서로의 인생에 다가선 두 사람이
-          <br />
-          이제 하나가 되어
-          <br />
-          새로운 시작을 하려 합니다.
+          이제 하나의 약속이 되었습니다.
           <br />
           <br />
-          귀한 걸음으로 오셔서
+          2021년 겨울, 저희 둘은 처음 만나
           <br />
-          축복해 주시고 함께해 주세요.
+          인연을 맺었습니다.
+          <br />
+          함께한 시간이 쌓여 어느새 4년 반이 되었고,
+          <br />
+          이제 평생을 함께하기로 했습니다.
+          <br />
+          <br />
+          이 소중한 여정에 특별한 당신을 초대합니다.
+          <br />
+          귀한 걸음으로 자리를 빛내주세요.
         </p>
 
         <div className="flex flex-col gap-3 text-sm text-muted-foreground mt-4">

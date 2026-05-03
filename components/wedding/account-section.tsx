@@ -116,12 +116,12 @@ export function AccountSection() {
           <p className="text-xs tracking-[0.3em] text-muted-foreground uppercase">
             Account
           </p>
-          <h2 className="font-serif text-lg tracking-wide text-foreground font-medium">
+          <h2 className="font-serif text-xl tracking-wide text-foreground font-medium">
             마음 전하실 곳
           </h2>
         </div>
 
-        <p className="text-sm text-muted-foreground text-center leading-relaxed">
+        <p className="text-base text-muted-foreground text-center leading-relaxed">
           축하의 마음을 전해주시고 싶은 분들께
           <br />
           안내드립니다.
@@ -152,11 +152,13 @@ function AccountRow({ account }: { account: AccountInfo }) {
   return (
     <div className="flex items-center justify-between py-3.5">
       <div className="flex flex-col gap-0.5">
-        <p className="text-[11px] text-muted-foreground tracking-wide">
+        <p className="text-xs text-muted-foreground tracking-wide">
           {account.relation}
         </p>
-        <p className="text-sm font-medium text-foreground">{account.holder}</p>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-base font-medium text-foreground">
+          {account.holder}
+        </p>
+        <p className="text-sm text-muted-foreground">
           {account.bank} {account.number}
         </p>
       </div>

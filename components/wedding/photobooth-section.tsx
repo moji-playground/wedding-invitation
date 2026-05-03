@@ -32,7 +32,7 @@ export function PhotoboothSection() {
           <p className="text-xs tracking-[0.3em] text-muted-foreground uppercase">
             Photobooth
           </p>
-          <h2 className="font-serif text-lg tracking-wide text-foreground font-medium">
+          <h2 className="font-serif text-xl tracking-wide text-foreground font-medium">
             포토 부스
           </h2>
         </div>
@@ -59,9 +59,9 @@ export function PhotoboothSection() {
               추억을 나누고 싶어 포토부스를 준비했습니다.
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed mt-3">
-              사진은 두 장이 출력되며, 한 장은 오늘의 기억으로 간직하실 수
-              있고, 포토 방명록도 옆에 마련되어 있으니 사진 한 장과 함께
-              축하의 마음을 담아주시면 더없이 감사하겠습니다.
+              사진은 두 장이 출력되며, 한 장은 오늘의 기억으로 간직하실 수 있고,
+              포토 방명록도 옆에 마련되어 있으니 사진 한 장과 함께 축하의 마음을
+              담아주시면 더없이 감사하겠습니다.
             </p>
           </div>
         </div>

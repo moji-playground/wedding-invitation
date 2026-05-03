@@ -41,7 +41,7 @@ export function LocationSection() {
           <p className="text-xs tracking-[0.3em] text-muted-foreground uppercase">
             Location
           </p>
-          <h2 className="font-serif text-lg tracking-wide text-foreground font-medium">
+          <h2 className="font-serif text-xl tracking-wide text-foreground font-medium">
             오시는 길
           </h2>
         </div>
@@ -55,7 +55,7 @@ export function LocationSection() {
                 <h3 className="font-serif text-base font-medium text-foreground mb-1">
                   더 S 웨딩홀 1층 컨벤션홀
                 </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-base text-muted-foreground leading-relaxed">
                   부산광역시 남구 전포대로 26
                   <br />
                   삼성힐타워 1층 (문현동 383-1번지)
@@ -65,11 +65,11 @@ export function LocationSection() {
 
             {/* Contact numbers */}
             <div className="mt-3 flex flex-col gap-1.5">
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="w-3 h-3 shrink-0" />
                 <span>더S웨딩홀 051.711.0777</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="w-3 h-3 shrink-0" />
                 <span>더파티 문현점 051.711.0222</span>
               </div>
@@ -217,14 +217,14 @@ function TransportAccordion() {
       title: "지하철 이용시",
       content: (
         <div className="flex flex-col gap-3">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-base text-muted-foreground">
             2호선 문현역 2번 출구, 4번 출구
           </p>
           <div className="flex flex-col gap-0.5">
             <p className="text-[11px] text-muted-foreground font-semibold tracking-wide uppercase">
               부산역에서 오실 경우
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-base text-muted-foreground">
               1호선 탑승 → 서면역 하차 → 2호선 환승 → 문현역 하차
             </p>
           </div>
@@ -236,11 +236,11 @@ function TransportAccordion() {
       title: "시내버스 이용시",
       content: (
         <div className="flex flex-col gap-3">
-          <div className="text-sm text-muted-foreground">
+          <div className="text-base text-muted-foreground">
             <p>24번</p>
             <p>→ 문현 삼성아파트 하차</p>
           </div>
-          <div className="text-sm text-muted-foreground">
+          <div className="text-base text-muted-foreground">
             <p>10, 22, 24, 27, 40, 41, 42,</p>
             <p>68, 83, 83-1, 101, 108, 138, 168번</p>
             <p>→ 문현교차로 하차 (도보 300m)</p>
@@ -252,7 +252,7 @@ function TransportAccordion() {
       icon: <Car className="w-4 h-4" />,
       title: "승용차 이용시",
       content: (
-        <div className="text-sm text-muted-foreground">
+        <div className="text-base text-muted-foreground">
           <p>서울·대구 출발</p>
           <p>→ 부산 도시고속도로</p>
           <p>→ 문현램프 우회전 후 50m 직진</p>
@@ -263,7 +263,7 @@ function TransportAccordion() {
       icon: <ParkingCircle className="w-4 h-4" />,
       title: "주차장 이용시",
       content: (
-        <p className="text-sm text-muted-foreground">
+        <p className="text-base text-muted-foreground">
           삼성힐타워 아파트 지하1층 주차장
           <br />
           (지하철 4번 출구 지나서 우회전)

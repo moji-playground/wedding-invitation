@@ -40,14 +40,14 @@ export function PhotoboothSection() {
         <div className="bg-card border border-border/50 max-w-sm w-full flex flex-col">
           {/* 이용 시간 */}
           <div className="px-6 py-5 border-b border-border/50 flex items-center justify-between">
-            <p className="text-xs text-muted-foreground tracking-wide">
+            <p className="text-sm text-muted-foreground tracking-wide">
               이용 시간
             </p>
             <div className="text-right">
               <p className="font-serif text-xl font-medium text-foreground tracking-wide">
                 11:30 ~ 12:30
               </p>
-              <p className="text-[11px] text-muted-foreground mt-0.5">
+              <p className="text-xs text-muted-foreground mt-0.5">
                 예식 시작 1시간 전부터 이용 가능합니다
               </p>
             </div>
@@ -60,8 +60,8 @@ export function PhotoboothSection() {
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed mt-3">
               사진은 두 장이 출력되며, 한 장은 오늘의 기억으로 간직하실 수 있고,
-              포토 방명록도 옆에 마련되어 있으니 사진 한 장과 함께 축하의 마음을
-              담아주시면 더없이 감사하겠습니다.
+              포토 방명록도 옆에 마련되어 있으니 사진 한 장과 함께 축하의 메시지
+              남겨주시면 더없이 감사하겠습니다.
             </p>
           </div>
         </div>

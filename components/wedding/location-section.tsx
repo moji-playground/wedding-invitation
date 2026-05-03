@@ -10,6 +10,7 @@ import {
   ParkingCircle,
   Phone,
   ChevronDown,
+  Info,
 } from "lucide-react";
 import { Map, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { Heart } from "lucide-react";
@@ -55,7 +56,7 @@ export function LocationSection() {
                 <h3 className="font-serif text-base font-medium text-foreground mb-1">
                   더 S 웨딩홀 1층 컨벤션홀
                 </h3>
-                <p className="text-base text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   부산광역시 남구 전포대로 26
                   <br />
                   삼성힐타워 1층 (문현동 383-1번지)
@@ -200,7 +201,8 @@ export function LocationSection() {
           </div>
 
           {/* Transportation */}
-          <p className="text-xs text-muted-foreground text-center">
+          <p className="flex items-center justify-center gap-1.5 text-sm text-foreground/60 text-center">
+            <Info className="w-3.5 h-3.5 shrink-0 text-amber-400 -translate-y-[1.5px]" />
             주차 공간이 넉넉하지 않아 대중교통을 추천드려요.
           </p>
           <TransportAccordion />
@@ -221,7 +223,7 @@ function TransportAccordion() {
             2호선 문현역 2번 출구, 4번 출구
           </p>
           <div className="flex flex-col gap-0.5">
-            <p className="text-[11px] text-muted-foreground font-semibold tracking-wide uppercase">
+            <p className="text-xs text-muted-foreground font-semibold tracking-wide uppercase">
               부산역에서 오실 경우
             </p>
             <p className="text-base text-muted-foreground">

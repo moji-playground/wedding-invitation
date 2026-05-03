@@ -1,68 +1,91 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
+import { useState, useEffect, useRef, useCallback } from "react";
+import Image, { StaticImageData } from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import photo7 from "@/public/images/photo7.jpeg";
+import photo1 from "@/public/images/photo1.jpeg";
+import photo9 from "@/public/images/photo9.jpeg";
+import photo2 from "@/public/images/photo2.jpeg";
+import photo5 from "@/public/images/photo5.jpeg";
+import photo8 from "@/public/images/photo8.jpeg";
+import photo6 from "@/public/images/photo6.jpeg";
+import photo4 from "@/public/images/photo4.jpeg";
 
-const photos = [
-  {
-    src: "/images/photo7.jpeg",
-    alt: "커플 사진 1",
-    position: "object-top",
-    ratio: "portrait",
-  },
-  {
-    src: "/images/photo1.jpeg",
-    alt: "커플 사진 2",
-    position: "object-top",
-    ratio: "landscape",
-  },
-  {
-    src: "/images/photo9.jpeg",
-    alt: "커플 사진 3",
-    position: "object-top",
-    ratio: "portrait",
-  },
-  {
-    src: "/images/photo2.jpeg",
-    alt: "커플 사진 4",
-    position: "object-center scale-180",
-    ratio: "landscape",
-  },
-  {
-    src: "/images/photo5.jpeg",
-    alt: "커플 사진 5",
-    position: "object-right",
-    ratio: "landscape",
-  },
-  {
-    src: "/images/photo8.jpeg",
-    alt: "커플 사진 6",
-    position: "object-center",
-    ratio: "portrait",
-  },
-  {
-    src: "/images/photo6.jpeg",
-    alt: "커플 사진 7",
-    position: "object-center",
-    ratio: "portrait",
-  },
-  {
-    src: "/images/photo4.jpeg",
-    alt: "커플 사진 8",
-    position: "object-center",
-    ratio: "portrait",
-  },
+interface Photo {
+  src: StaticImageData;
+  alt: string;
+  position: string;
+}
+
+const photos: Photo[] = [
+  { src: photo7, alt: "커플 사진 1", position: "object-top" },
+  { src: photo1, alt: "커플 사진 2", position: "object-top" },
+  { src: photo9, alt: "커플 사진 3", position: "object-top" },
+  { src: photo2, alt: "커플 사진 4", position: "object-center scale-180" },
+  { src: photo5, alt: "커플 사진 5", position: "object-right" },
+  { src: photo8, alt: "커플 사진 6", position: "object-center" },
+  { src: photo6, alt: "커플 사진 7", position: "object-center" },
+  { src: photo4, alt: "커플 사진 8", position: "object-center" },
 ];
+
+function LightboxImage({ photo, visible }: { photo: Photo; visible: boolean }) {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <Image
+      src={photo.src}
+      alt={photo.alt}
+      width={800}
+      height={1200}
+      placeholder="blur"
+      onLoad={() => setLoaded(true)}
+      className={`object-contain max-h-[80vh] w-auto transition-all duration-500 ${
+        visible ? "relative" : "absolute pointer-events-none"
+      } ${loaded ? "opacity-100 blur-0" : "opacity-0 blur-lg"}`}
+    />
+  );
+}
+
+function GalleryImage({
+  src,
+  alt,
+  position,
+  onClick,
+}: Photo & { onClick: () => void }) {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <button
+      onClick={onClick}
+      className="relative overflow-hidden group w-full h-full"
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        placeholder="blur"
+        onLoad={() => setLoaded(true)}
+        className={`object-cover transition-all duration-700 group-hover:scale-105 ${position} ${loaded ? "blur-0" : "blur-lg"}`}
+      />
+    </button>
+  );
+}
 
 export function GallerySectionD() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
 
-  const prev = () =>
-    setLightboxIndex((i) => ((i ?? 0) - 1 + photos.length) % photos.length);
-  const next = () => setLightboxIndex((i) => ((i ?? 0) + 1) % photos.length);
+  const prev = useCallback(
+    () =>
+      setLightboxIndex(
+        ((lightboxIndex ?? 0) - 1 + photos.length) % photos.length,
+      ),
+    [lightboxIndex],
+  );
+  const next = useCallback(
+    () => setLightboxIndex(((lightboxIndex ?? 0) + 1) % photos.length),
+    [lightboxIndex],
+  );
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -94,7 +117,7 @@ export function GallerySectionD() {
       window.removeEventListener("keydown", onKey);
       document.removeEventListener("touchmove", preventScroll);
     };
-  }, [lightboxIndex]);
+  }, [lightboxIndex, next, prev]);
 
   const open = (i: number) => setLightboxIndex(i);
 
@@ -114,113 +137,41 @@ export function GallerySectionD() {
           <div className="w-full max-w-sm px-4 flex flex-col gap-1">
             {/* Row 1: 세로 2분할 */}
             <div className="flex gap-1" style={{ height: 180 }}>
-              <button
-                onClick={() => open(0)}
-                className="relative overflow-hidden group"
-                style={{ flex: 1 }}
-              >
-                <Image
-                  src={photos[0].src}
-                  alt={photos[0].alt}
-                  fill
-                  className={`object-cover transition-transform duration-700 group-hover:scale-105 ${photos[0].position}`}
-                />
-              </button>
-              <button
-                onClick={() => open(2)}
-                className="relative overflow-hidden group"
-                style={{ flex: 1 }}
-              >
-                <Image
-                  src={photos[2].src}
-                  alt={photos[2].alt}
-                  fill
-                  className={`object-cover transition-transform duration-700 group-hover:scale-105 ${photos[2].position}`}
-                />
-              </button>
+              <div style={{ flex: 1 }}>
+                <GalleryImage {...photos[0]} onClick={() => open(0)} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <GalleryImage {...photos[2]} onClick={() => open(2)} />
+              </div>
             </div>
 
             {/* Row 2: 가로 풀 width */}
-            <button
-              onClick={() => open(3)}
-              className="relative w-full overflow-hidden group"
-              style={{ aspectRatio: "3/2" }}
-            >
-              <Image
-                src={photos[3].src}
-                alt={photos[3].alt}
-                fill
-                className={`object-cover transition-transform duration-700 group-hover:scale-105 ${photos[3].position}`}
-              />
-            </button>
+            <div className="w-full" style={{ aspectRatio: "3/2" }}>
+              <GalleryImage {...photos[3]} onClick={() => open(3)} />
+            </div>
 
             {/* Row 3: 가로 2분할 */}
             <div className="flex gap-1" style={{ height: 180 }}>
-              <button
-                onClick={() => open(1)}
-                className="relative overflow-hidden group"
-                style={{ flex: 1 }}
-              >
-                <Image
-                  src={photos[1].src}
-                  alt={photos[1].alt}
-                  fill
-                  className={`object-cover transition-transform duration-700 group-hover:scale-105 ${photos[1].position}`}
-                />
-              </button>
-              <button
-                onClick={() => open(4)}
-                className="relative overflow-hidden group"
-                style={{ flex: 1 }}
-              >
-                <Image
-                  src={photos[4].src}
-                  alt={photos[4].alt}
-                  fill
-                  className={`object-cover transition-transform duration-700 group-hover:scale-105 ${photos[4].position}`}
-                />
-              </button>
+              <div style={{ flex: 1 }}>
+                <GalleryImage {...photos[1]} onClick={() => open(1)} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <GalleryImage {...photos[4]} onClick={() => open(4)} />
+              </div>
             </div>
 
             {/* Row 4: 세로 크게 + 세로 2장 스택 */}
             <div className="flex gap-1" style={{ height: 320 }}>
-              <button
-                onClick={() => open(5)}
-                className="relative overflow-hidden group"
-                style={{ flex: 1.5 }}
-              >
-                <Image
-                  src={photos[5].src}
-                  alt={photos[5].alt}
-                  fill
-                  className={`object-cover transition-transform duration-700 group-hover:scale-105 ${photos[5].position}`}
-                />
-              </button>
+              <div style={{ flex: 1.5 }}>
+                <GalleryImage {...photos[5]} onClick={() => open(5)} />
+              </div>
               <div className="flex flex-col gap-1" style={{ flex: 1 }}>
-                <button
-                  onClick={() => open(6)}
-                  className="relative overflow-hidden group"
-                  style={{ flex: 1 }}
-                >
-                  <Image
-                    src={photos[6].src}
-                    alt={photos[6].alt}
-                    fill
-                    className={`object-cover transition-transform duration-700 group-hover:scale-105 ${photos[6].position}`}
-                  />
-                </button>
-                <button
-                  onClick={() => open(7)}
-                  className="relative overflow-hidden group"
-                  style={{ flex: 1 }}
-                >
-                  <Image
-                    src={photos[7].src}
-                    alt={photos[7].alt}
-                    fill
-                    className={`object-cover transition-transform duration-700 group-hover:scale-105 ${photos[7].position}`}
-                  />
-                </button>
+                <div style={{ flex: 1 }}>
+                  <GalleryImage {...photos[6]} onClick={() => open(6)} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <GalleryImage {...photos[7]} onClick={() => open(7)} />
+                </div>
               </div>
             </div>
           </div>
@@ -250,7 +201,7 @@ export function GallerySectionD() {
         >
           <button
             onClick={() => setLightboxIndex(null)}
-            className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/40 flex items-center justify-center text-white hover:bg-black/60 transition-colors drop-shadow-md"
+            className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/40 flex items-center justify-center text-white hover:bg-black/60 transition-colors"
             aria-label="닫기"
           >
             <X className="w-5 h-5" />
@@ -260,26 +211,26 @@ export function GallerySectionD() {
               e.stopPropagation();
               prev();
             }}
-            className="absolute left-3 z-10 w-10 h-10 rounded-full bg-black/40 flex items-center justify-center text-white hover:bg-black/60 transition-colors drop-shadow-md"
+            className="absolute left-3 z-10 w-10 h-10 rounded-full bg-black/40 flex items-center justify-center text-white hover:bg-black/60 transition-colors"
             aria-label="이전"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <div className="relative max-w-sm w-full max-h-[80vh] flex items-center justify-center">
-            <Image
-              src={photos[lightboxIndex].src}
-              alt={photos[lightboxIndex].alt}
-              width={800}
-              height={1200}
-              className="object-contain max-h-[80vh] w-auto"
-            />
+            {photos.map((photo, i) => (
+              <LightboxImage
+                key={photo.src.src}
+                photo={photo}
+                visible={i === lightboxIndex}
+              />
+            ))}
           </div>
           <button
             onClick={(e) => {
               e.stopPropagation();
               next();
             }}
-            className="absolute right-3 z-10 w-10 h-10 rounded-full bg-black/40 flex items-center justify-center text-white hover:bg-black/60 transition-colors drop-shadow-md"
+            className="absolute right-3 z-10 w-10 h-10 rounded-full bg-black/40 flex items-center justify-center text-white hover:bg-black/60 transition-colors"
             aria-label="다음"
           >
             <ChevronRight className="w-5 h-5" />

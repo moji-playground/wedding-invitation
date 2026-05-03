@@ -28,7 +28,7 @@ export function SplashScreen() {
       span.textContent = char;
       span.style.cssText =
         fontBase +
-        "font-size:2rem;font-weight:300;letter-spacing:0.15em;color:rgba(60,50,45,0.85);";
+        "font-size:1.5rem;font-weight:300;letter-spacing:0.12em;color:rgba(60,50,45,0.85);";
       span.style.transitionDelay = `${0.3 + i * 0.055}s`;
       l1.appendChild(span);
     });
@@ -38,7 +38,7 @@ export function SplashScreen() {
       span.textContent = char;
       span.style.cssText =
         fontBase +
-        "font-size:1rem;font-weight:300;letter-spacing:0.3em;font-style:italic;color:rgba(60,50,45,0.5);";
+        "font-size:0.85rem;font-weight:300;letter-spacing:0.25em;font-style:italic;color:rgba(60,50,45,0.5);";
       span.style.transitionDelay = `${1.6 + i * 0.055}s`;
       l2.appendChild(span);
     });

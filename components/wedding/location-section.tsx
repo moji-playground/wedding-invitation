@@ -21,12 +21,18 @@ export function LocationSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("opacity-100", "translate-y-0");
-          entry.target.classList.remove("opacity-0", "translate-y-6");
-        }
+        if (!entry.isIntersecting) return;
+        const children =
+          ref.current?.querySelectorAll<HTMLElement>("[data-animate]");
+        children?.forEach((el, i) => {
+          setTimeout(() => {
+            el.classList.add("opacity-100", "translate-y-0");
+            el.classList.remove("opacity-0", "translate-y-6");
+          }, i * 120);
+        });
+        observer.disconnect();
       },
-      { threshold: 0.2 },
+      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" },
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -34,11 +40,11 @@ export function LocationSection() {
 
   return (
     <section className="px-6 py-16">
-      <div
-        ref={ref}
-        className="flex flex-col items-center gap-8 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
-      >
-        <div className="flex flex-col items-center gap-1">
+      <div ref={ref} className="flex flex-col items-center gap-8">
+        <div
+          data-animate
+          className="flex flex-col items-center gap-1 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+        >
           <p className="text-xs tracking-[0.3em] text-muted-foreground uppercase">
             Location
           </p>
@@ -47,7 +53,10 @@ export function LocationSection() {
           </h2>
         </div>
 
-        <div className="w-full max-w-sm flex flex-col gap-4">
+        <div
+          data-animate
+          className="w-full max-w-sm flex flex-col gap-4 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+        >
           {/* Venue info */}
           <div className="bg-card p-6 border border-border/50">
             <div className="flex items-start gap-3">

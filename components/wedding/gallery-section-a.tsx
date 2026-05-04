@@ -25,7 +25,7 @@ export function GallerySectionA() {
           entry.target.classList.remove("opacity-0", "translate-y-6");
         }
       },
-      { threshold: 0.1 },
+      { threshold: 0.1, rootMargin: "0px 0px -120px 0px" },
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();

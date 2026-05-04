@@ -29,20 +29,23 @@ const photos: Photo[] = [
   { src: photo4, alt: "커플 사진 8", position: "object-center" },
 ];
 
+// 컴포넌트 재마운트 시에도 로드 상태 유지
+const loadedSet = new Set<string>();
+
 function LightboxImage({ photo, visible }: { photo: Photo; visible: boolean }) {
   const [loaded, setLoaded] = useState(false);
   return (
-    <Image
-      src={photo.src}
-      alt={photo.alt}
-      width={800}
-      height={1200}
-      placeholder="blur"
-      onLoad={() => setLoaded(true)}
-      className={`object-contain max-h-[80vh] w-auto transition-all duration-500 ${
-        visible ? "relative" : "absolute pointer-events-none"
-      } ${loaded ? "opacity-100 blur-0" : "opacity-0 blur-lg"}`}
-    />
+    <div className={visible ? "contents" : "hidden"}>
+      <Image
+        src={photo.src}
+        alt={photo.alt}
+        width={800}
+        height={1200}
+        placeholder="blur"
+        onLoad={() => setLoaded(true)}
+        className={`object-contain max-h-[80vh] w-auto transition-all duration-500 ${loaded ? "opacity-100 blur-0" : "opacity-0 blur-lg"}`}
+      />
+    </div>
   );
 }
 
@@ -52,7 +55,14 @@ function GalleryImage({
   position,
   onClick,
 }: Photo & { onClick: () => void }) {
-  const [loaded, setLoaded] = useState(false);
+  const key = src.src;
+  const [loaded, setLoaded] = useState(() => loadedSet.has(key));
+
+  const handleLoad = () => {
+    loadedSet.add(key);
+    setLoaded(true);
+  };
+
   return (
     <button
       onClick={onClick}
@@ -63,7 +73,8 @@ function GalleryImage({
         alt={alt}
         fill
         placeholder="blur"
-        onLoad={() => setLoaded(true)}
+        sizes="(max-width: 640px) 50vw, 384px"
+        onLoad={handleLoad}
         className={`object-cover transition-all duration-700 group-hover:scale-105 ${position} ${loaded ? "blur-0" : "blur-lg"}`}
       />
     </button>
@@ -90,12 +101,12 @@ export function GallerySectionD() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("opacity-100", "translate-y-0");
-          entry.target.classList.remove("opacity-0", "translate-y-6");
-        }
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("opacity-100", "translate-y-0");
+        entry.target.classList.remove("opacity-0", "translate-y-6");
+        observer.disconnect();
       },
-      { threshold: 0.1 },
+      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" },
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -124,18 +135,18 @@ export function GallerySectionD() {
   return (
     <>
       <section className="py-16">
-        <div
-          ref={ref}
-          className="flex flex-col items-center gap-8 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
-        >
-          <div className="flex flex-col items-center gap-1 px-6">
+        <div className="flex flex-col items-center gap-8">
+          <div
+            ref={ref}
+            className="flex flex-col items-center gap-1 px-6 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+          >
             <p className="text-sm tracking-[0.3em] text-muted-foreground uppercase">
               Gallery
             </p>
           </div>
 
           <div className="w-full max-w-sm px-4 flex flex-col gap-1">
-            {/* Row 1: 세로 2분할 */}
+            {/* Row 1 */}
             <div className="flex gap-1" style={{ height: 180 }}>
               <div style={{ flex: 1 }}>
                 <GalleryImage {...photos[0]} onClick={() => open(0)} />
@@ -145,12 +156,12 @@ export function GallerySectionD() {
               </div>
             </div>
 
-            {/* Row 2: 가로 풀 width */}
+            {/* Row 2 */}
             <div className="w-full" style={{ aspectRatio: "3/2" }}>
               <GalleryImage {...photos[3]} onClick={() => open(3)} />
             </div>
 
-            {/* Row 3: 가로 2분할 */}
+            {/* Row 3 */}
             <div className="flex gap-1" style={{ height: 180 }}>
               <div style={{ flex: 1 }}>
                 <GalleryImage {...photos[1]} onClick={() => open(1)} />
@@ -160,7 +171,7 @@ export function GallerySectionD() {
               </div>
             </div>
 
-            {/* Row 4: 세로 크게 + 세로 2장 스택 */}
+            {/* Row 4 */}
             <div className="flex gap-1" style={{ height: 320 }}>
               <div style={{ flex: 1.5 }}>
                 <GalleryImage {...photos[5]} onClick={() => open(5)} />
@@ -190,7 +201,7 @@ export function GallerySectionD() {
             e.stopPropagation();
             if (touchStartX.current === null) return;
             const dx = e.changedTouches[0].clientX - touchStartX.current;
-            if (Math.abs(dx) > 50) {
+            if (Math.abs(dx) > 70) {
               if (dx < 0) next();
               else prev();
             }

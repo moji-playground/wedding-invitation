@@ -65,8 +65,17 @@ export function MusicPlayer() {
       });
     };
 
+    const handleSplashPlay = () => {
+      if (playerRef.current) {
+        playerRef.current.setVolume(60);
+        playerRef.current.playVideo();
+      }
+    };
+    window.addEventListener("splash-play-music", handleSplashPlay);
+
     return () => {
       window.onYouTubeIframeAPIReady = () => {};
+      window.removeEventListener("splash-play-music", handleSplashPlay);
     };
   }, []);
 
@@ -97,9 +106,7 @@ export function MusicPlayer() {
         <Music
           className={`w-3 h-3 text-foreground/60 shrink-0 ${playing ? "animate-bounce" : ""}`}
         />
-        <span
-          className="text-[11px] text-foreground/60 tracking-wide whitespace-nowrap"
-        >
+        <span className="text-[11px] text-foreground/60 tracking-wide whitespace-nowrap">
           Flower — 오반
         </span>
         {/* 재생 중 파형 애니메이션 */}

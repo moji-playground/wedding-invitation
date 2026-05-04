@@ -43,8 +43,39 @@ export function SplashScreen() {
       l2.appendChild(span);
     });
 
+    // 버튼 영역 (텍스트 애니메이션 끝난 후 등장)
+    const btnWrap = document.createElement("div");
+    btnWrap.style.cssText =
+      "display:flex;gap:16px;margin-top:48px;opacity:0;transition:opacity 0.6s ease-in-out;";
+
+    const btnBase =
+      'font-family:"Cormorant Garamond",Georgia,serif;font-size:0.8rem;font-weight:300;letter-spacing:0.2em;padding:10px 20px;border:1px solid rgba(60,50,45,0.25);background:transparent;cursor:pointer;color:rgba(60,50,45,0.6);transition:all 0.2s;';
+
+    const btnMusic = document.createElement("button");
+    btnMusic.textContent = "♪  음악과 함께";
+    btnMusic.style.cssText = btnBase;
+
+    const btnSilent = document.createElement("button");
+    btnSilent.textContent = "조용히 보기";
+    btnSilent.style.cssText = btnBase;
+
+    const dismiss = (withMusic: boolean) => {
+      if (withMusic) {
+        window.dispatchEvent(new CustomEvent("splash-play-music"));
+      }
+      overlay.style.opacity = "0";
+      setTimeout(() => overlay.remove(), 1300);
+    };
+
+    btnMusic.addEventListener("click", () => dismiss(true));
+    btnSilent.addEventListener("click", () => dismiss(false));
+
+    btnWrap.appendChild(btnMusic);
+    btnWrap.appendChild(btnSilent);
+
     overlay.appendChild(l1);
     overlay.appendChild(l2);
+    overlay.appendChild(btnWrap);
     document.body.prepend(overlay);
 
     requestAnimationFrame(() => {
@@ -56,10 +87,11 @@ export function SplashScreen() {
       });
     });
 
+    // 텍스트 애니메이션 끝난 후 버튼 등장
+    const btnDelay = 1.6 + line2Text.length * 0.055 + 0.6;
     setTimeout(() => {
-      overlay.style.opacity = "0";
-      setTimeout(() => overlay.remove(), 1300);
-    }, 3400);
+      btnWrap.style.opacity = "1";
+    }, btnDelay * 1000);
   }, []);
 
   return null;

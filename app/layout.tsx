@@ -30,15 +30,15 @@ const _cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: "현모 & 은지의 결혼식에 초대합니다",
-  description: "2026년 6월 6일 토요일 오후 12시 30분, 더 S 웨딩홀",
-  generator: "v0.app",
+  description: "2026년 6월 6일 토요일 오후 12시 30분, 더 S 웨딩홀 1층 컨벤션홀",
   icons: {
     icon: "/images/wedding-hero.jpg",
     apple: "/images/wedding-hero.jpg",
   },
   openGraph: {
     title: "현모 & 은지의 결혼식에 초대합니다",
-    description: "2026년 6월 6일 토요일 오후 12시 30분, 더 S 웨딩홀",
+    description:
+      "2026년 6월 6일 토요일 오후 12시 30분, 더 S 웨딩홀 1층 컨벤션홀",
     images: [
       {
         url: "https://wedding-invitation-gules.vercel.app/images/thumbnail.jpeg",

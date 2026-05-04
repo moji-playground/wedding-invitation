@@ -39,7 +39,7 @@ export function GreetingSection() {
           <br />
           인연을 맺었습니다.
           <br />
-          함께한 시간이 쌓여 어느새 4년 반이 되었고,
+          함께한 시간이 쌓여 어느새 지금에 이르렀고,
           <br />
           이제 평생을 함께하기로 했습니다.
           <br />
@@ -49,21 +49,21 @@ export function GreetingSection() {
           귀한 걸음으로 자리를 빛내주세요.
         </p>
 
-        <div className="flex flex-col gap-3 text-sm text-muted-foreground mt-4">
-          <p>
-            <span className="text-foreground font-medium">정원봉</span>
-            {" · "}
-            <span className="text-foreground font-medium">임금미</span>
-            <span className="ml-1">의 아들</span>
-            <span className="text-foreground font-semibold ml-2">정현모</span>
-          </p>
-          <p>
-            <span className="text-foreground font-medium">김태훈</span>
-            {" · "}
-            <span className="text-foreground font-medium">박인숙</span>
-            <span className="ml-1">의 딸</span>
-            <span className="text-foreground font-semibold ml-2">김은지</span>
-          </p>
+        <div className="grid grid-cols-[auto_auto_auto] gap-x-2 gap-y-3 text-sm text-muted-foreground mt-4 items-baseline [&>*]:text-left">
+          <span className="text-foreground font-medium whitespace-nowrap">
+            정원봉 · 임금미
+          </span>
+          <span className="whitespace-nowrap">의 아들</span>
+          <span className="text-foreground font-semibold whitespace-nowrap">
+            정현모
+          </span>
+          <span className="text-foreground font-medium whitespace-nowrap">
+            김태훈 · 박인숙
+          </span>
+          <span className="whitespace-nowrap">의 딸</span>
+          <span className="text-foreground font-semibold whitespace-nowrap">
+            김은지
+          </span>
         </div>
       </div>
     </section>

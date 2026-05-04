@@ -51,30 +51,15 @@ export function ShareSection() {
         window.Kakao.init("2e881768d76c32426bc22b208b480679");
       }
 
-      const imageUrl = window.location.origin + "/images/wedding-hero.jpg";
       const currentUrl = window.location.href;
 
-      window.Kakao.Share.sendDefault({
-        objectType: "feed",
-        content: {
+      window.Kakao.Share.sendScrap({
+        requestUrl: currentUrl,
+        templateArgs: {
           title: "현모 & 은지의 결혼식에 초대합니다",
           description:
-            "2026년 6월 6일 토요일 오후 12시 30분\n더 S 웨딩홀 1층 컨벤션홀",
-          imageUrl: imageUrl,
-          link: {
-            mobileWebUrl: currentUrl,
-            webUrl: currentUrl,
-          },
+            "2026년 6월 6일 토요일 오후 12시 30분, 더 S 웨딩홀 1층 컨벤션홀",
         },
-        buttons: [
-          {
-            title: "청첩장 보기",
-            link: {
-              mobileWebUrl: currentUrl,
-              webUrl: currentUrl,
-            },
-          },
-        ],
       });
     } else {
       alert("카카오톡 브라우저 SDK를 불러오지 못했습니다.");

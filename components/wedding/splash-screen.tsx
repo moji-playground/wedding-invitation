@@ -63,6 +63,7 @@ export function SplashScreen() {
       if (withMusic) {
         window.dispatchEvent(new CustomEvent("splash-play-music"));
       }
+      window.scrollTo(0, 0);
       overlay.style.opacity = "0";
       setTimeout(() => overlay.remove(), 1300);
     };

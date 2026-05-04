@@ -29,6 +29,9 @@ const photos: Photo[] = [
   { src: photo4, alt: "커플 사진 8", position: "object-center" },
 ];
 
+// 컴포넌트 재마운트 시에도 로드 상태 유지
+const loadedSet = new Set<string>();
+
 function LightboxImage({ photo, visible }: { photo: Photo; visible: boolean }) {
   const [loaded, setLoaded] = useState(false);
   return (
@@ -52,7 +55,14 @@ function GalleryImage({
   position,
   onClick,
 }: Photo & { onClick: () => void }) {
-  const [loaded, setLoaded] = useState(false);
+  const key = src.src;
+  const [loaded, setLoaded] = useState(() => loadedSet.has(key));
+
+  const handleLoad = () => {
+    loadedSet.add(key);
+    setLoaded(true);
+  };
+
   return (
     <button
       onClick={onClick}
@@ -63,7 +73,8 @@ function GalleryImage({
         alt={alt}
         fill
         placeholder="blur"
-        onLoad={() => setLoaded(true)}
+        sizes="(max-width: 640px) 50vw, 384px"
+        onLoad={handleLoad}
         className={`object-cover transition-all duration-700 group-hover:scale-105 ${position} ${loaded ? "blur-0" : "blur-lg"}`}
       />
     </button>
@@ -91,14 +102,8 @@ export function GallerySectionD() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
-        const children =
-          ref.current?.querySelectorAll<HTMLElement>("[data-animate]");
-        children?.forEach((el, i) => {
-          setTimeout(() => {
-            el.classList.add("opacity-100", "translate-y-0");
-            el.classList.remove("opacity-0", "translate-y-6");
-          }, i * 120);
-        });
+        entry.target.classList.add("opacity-100", "translate-y-0");
+        entry.target.classList.remove("opacity-0", "translate-y-6");
         observer.disconnect();
       },
       { threshold: 0.1, rootMargin: "0px 0px -60px 0px" },
@@ -130,11 +135,11 @@ export function GallerySectionD() {
   return (
     <>
       <section className="py-16">
-        <div ref={ref} className="flex flex-col items-center gap-8">
-          <div
-            data-animate
-            className="flex flex-col items-center gap-1 px-6 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
-          >
+        <div
+          ref={ref}
+          className="flex flex-col items-center gap-8 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+        >
+          <div className="flex flex-col items-center gap-1 px-6">
             <p className="text-sm tracking-[0.3em] text-muted-foreground uppercase">
               Gallery
             </p>
@@ -142,11 +147,7 @@ export function GallerySectionD() {
 
           <div className="w-full max-w-sm px-4 flex flex-col gap-1">
             {/* Row 1 */}
-            <div
-              data-animate
-              className="flex gap-1 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
-              style={{ height: 180 }}
-            >
+            <div className="flex gap-1" style={{ height: 180 }}>
               <div style={{ flex: 1 }}>
                 <GalleryImage {...photos[0]} onClick={() => open(0)} />
               </div>
@@ -156,20 +157,12 @@ export function GallerySectionD() {
             </div>
 
             {/* Row 2 */}
-            <div
-              data-animate
-              className="w-full opacity-0 translate-y-6 transition-all duration-1000 ease-out"
-              style={{ aspectRatio: "3/2" }}
-            >
+            <div className="w-full" style={{ aspectRatio: "3/2" }}>
               <GalleryImage {...photos[3]} onClick={() => open(3)} />
             </div>
 
             {/* Row 3 */}
-            <div
-              data-animate
-              className="flex gap-1 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
-              style={{ height: 180 }}
-            >
+            <div className="flex gap-1" style={{ height: 180 }}>
               <div style={{ flex: 1 }}>
                 <GalleryImage {...photos[1]} onClick={() => open(1)} />
               </div>
@@ -179,11 +172,7 @@ export function GallerySectionD() {
             </div>
 
             {/* Row 4 */}
-            <div
-              data-animate
-              className="flex gap-1 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
-              style={{ height: 320 }}
-            >
+            <div className="flex gap-1" style={{ height: 320 }}>
               <div style={{ flex: 1.5 }}>
                 <GalleryImage {...photos[5]} onClick={() => open(5)} />
               </div>

@@ -1,34 +1,34 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { Heart, Check } from "lucide-react"
+import { useState, useEffect, useRef } from "react";
+import { Heart, Check } from "lucide-react";
 
 export function RsvpSection() {
-  const [attending, setAttending] = useState<"yes" | "no" | null>(null)
-  const [name, setName] = useState("")
-  const [guests, setGuests] = useState("1")
-  const [meal, setMeal] = useState<"yes" | "no">("yes")
-  const [submitted, setSubmitted] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
+  const [attending, setAttending] = useState<"yes" | "no" | null>(null);
+  const [name, setName] = useState("");
+  const [guests, setGuests] = useState("1");
+  const [meal, setMeal] = useState<"yes" | "no">("yes");
+  const [submitted, setSubmitted] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("opacity-100", "translate-y-0")
-          entry.target.classList.remove("opacity-0", "translate-y-6")
+          entry.target.classList.add("opacity-100", "translate-y-0");
+          entry.target.classList.remove("opacity-0", "translate-y-6");
         }
       },
-      { threshold: 0.2 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
+      { threshold: 0.2, rootMargin: "0px 0px -120px 0px" },
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitted(true)
-  }
+    e.preventDefault();
+    setSubmitted(true);
+  };
 
   if (submitted) {
     return (
@@ -45,7 +45,7 @@ export function RsvpSection() {
           </p>
         </div>
       </section>
-    )
+    );
   }
 
   return (
@@ -64,10 +64,16 @@ export function RsvpSection() {
           소중히 모실 수 있도록 회신 부탁드립니다.
         </p>
 
-        <form onSubmit={handleSubmit} className="w-full max-w-sm flex flex-col gap-5">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-sm flex flex-col gap-5"
+        >
           {/* Name */}
           <div className="flex flex-col gap-2">
-            <label htmlFor="rsvp-name" className="text-sm font-medium text-foreground">
+            <label
+              htmlFor="rsvp-name"
+              className="text-sm font-medium text-foreground"
+            >
               성함
             </label>
             <input
@@ -114,7 +120,10 @@ export function RsvpSection() {
           {attending === "yes" && (
             <>
               <div className="flex flex-col gap-2">
-                <label htmlFor="rsvp-guests" className="text-sm font-medium text-foreground">
+                <label
+                  htmlFor="rsvp-guests"
+                  className="text-sm font-medium text-foreground"
+                >
                   동행 인원 (본인 포함)
                 </label>
                 <select
@@ -173,5 +182,5 @@ export function RsvpSection() {
         </form>
       </div>
     </section>
-  )
+  );
 }

@@ -129,7 +129,7 @@ export function GallerySectionD() {
           className="flex flex-col items-center gap-8 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
         >
           <div className="flex flex-col items-center gap-1 px-6">
-            <p className="text-xs tracking-[0.3em] text-muted-foreground uppercase">
+            <p className="text-sm tracking-[0.3em] text-muted-foreground uppercase">
               Gallery
             </p>
           </div>

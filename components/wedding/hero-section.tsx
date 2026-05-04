@@ -64,10 +64,10 @@ export function HeroSection() {
 
         <div className="w-10 h-px bg-white/40 my-1" />
 
-        <p className="font-serif text-sm text-white/80 leading-relaxed">
+        <p className="font-serif text-base text-white/80 leading-relaxed">
           2026년 6월 6일 토요일 오후 12시 30분
         </p>
-        <p className="text-xs text-white/60 tracking-wide">
+        <p className="text-sm text-white/60 tracking-wide">
           더 S 웨딩홀 1층 컨벤션홀
         </p>
       </motion.div>

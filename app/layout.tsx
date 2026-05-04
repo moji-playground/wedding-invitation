@@ -56,6 +56,20 @@ export default function RootLayout({
       <body
         className={`${_notoSerif.variable} ${_notoSans.variable} ${_cormorant.variable} font-sans antialiased bg-background text-foreground`}
       >
+        <div
+          id="splash-overlay"
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 9999,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "#faf8f5",
+            transition: "opacity 1.2s ease-in-out",
+          }}
+        />
         <SplashScreen />
         {children}
         <Analytics />

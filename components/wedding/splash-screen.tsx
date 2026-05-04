@@ -4,12 +4,9 @@ import { useEffect } from "react";
 
 export function SplashScreen() {
   useEffect(() => {
-    if (document.getElementById("splash-overlay")) return;
-
-    const overlay = document.createElement("div");
-    overlay.id = "splash-overlay";
-    overlay.style.cssText =
-      "position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#faf8f5;transition:opacity 1.2s ease-in-out;";
+    const overlay = document.getElementById("splash-overlay");
+    if (!overlay || overlay.dataset.initialized) return;
+    overlay.dataset.initialized = "true";
 
     const line1Text = "We're getting married";
     const line2Text = "celebrate with us";
@@ -77,7 +74,6 @@ export function SplashScreen() {
     overlay.appendChild(l1);
     overlay.appendChild(l2);
     overlay.appendChild(btnWrap);
-    document.body.prepend(overlay);
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {

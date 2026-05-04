@@ -32,17 +32,17 @@ const photos: Photo[] = [
 function LightboxImage({ photo, visible }: { photo: Photo; visible: boolean }) {
   const [loaded, setLoaded] = useState(false);
   return (
-    <Image
-      src={photo.src}
-      alt={photo.alt}
-      width={800}
-      height={1200}
-      placeholder="blur"
-      onLoad={() => setLoaded(true)}
-      className={`object-contain max-h-[80vh] w-auto transition-all duration-500 ${
-        visible ? "relative" : "absolute pointer-events-none"
-      } ${loaded ? "opacity-100 blur-0" : "opacity-0 blur-lg"}`}
-    />
+    <div className={visible ? "contents" : "hidden"}>
+      <Image
+        src={photo.src}
+        alt={photo.alt}
+        width={800}
+        height={1200}
+        placeholder="blur"
+        onLoad={() => setLoaded(true)}
+        className={`object-contain max-h-[80vh] w-auto transition-all duration-500 ${loaded ? "opacity-100 blur-0" : "opacity-0 blur-lg"}`}
+      />
+    </div>
   );
 }
 
@@ -190,7 +190,7 @@ export function GallerySectionD() {
             e.stopPropagation();
             if (touchStartX.current === null) return;
             const dx = e.changedTouches[0].clientX - touchStartX.current;
-            if (Math.abs(dx) > 50) {
+            if (Math.abs(dx) > 70) {
               if (dx < 0) next();
               else prev();
             }

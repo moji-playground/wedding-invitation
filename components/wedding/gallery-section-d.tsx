@@ -135,11 +135,11 @@ export function GallerySectionD() {
   return (
     <>
       <section className="py-16">
-        <div
-          ref={ref}
-          className="flex flex-col items-center gap-8 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
-        >
-          <div className="flex flex-col items-center gap-1 px-6">
+        <div className="flex flex-col items-center gap-8">
+          <div
+            ref={ref}
+            className="flex flex-col items-center gap-1 px-6 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+          >
             <p className="text-sm tracking-[0.3em] text-muted-foreground uppercase">
               Gallery
             </p>

@@ -1,7 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Noto_Serif_KR, Noto_Sans_KR } from "next/font/google";
+import {
+  Noto_Serif_KR,
+  Noto_Sans_KR,
+  Cormorant_Garamond,
+} from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
+import { SplashScreen } from "@/components/wedding/splash-screen";
 import "./globals.css";
 
 const _notoSerif = Noto_Serif_KR({
@@ -14,6 +19,13 @@ const _notoSans = Noto_Sans_KR({
   subsets: ["latin"],
   weight: ["300", "400", "500", "700"],
   variable: "--font-sans",
+});
+
+const _cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
 });
 
 export const metadata: Metadata = {
@@ -42,8 +54,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${_notoSerif.variable} ${_notoSans.variable} font-sans antialiased bg-background text-foreground`}
+        className={`${_notoSerif.variable} ${_notoSans.variable} ${_cormorant.variable} font-sans antialiased bg-background text-foreground`}
       >
+        <SplashScreen />
         {children}
         <Analytics />
         <Script

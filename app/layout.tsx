@@ -39,7 +39,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "현모 & 은지의 결혼식에 초대합니다",
     description: "2026년 6월 6일 토요일 오후 12시 30분, 더 S 웨딩홀",
-    images: [{ url: "/images/thumbnail.jpeg" }],
+    images: [
+      {
+        url: "https://wedding-invitation-gules.vercel.app/images/thumbnail.jpeg",
+      },
+    ],
   },
 };
 

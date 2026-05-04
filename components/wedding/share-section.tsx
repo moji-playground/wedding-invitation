@@ -71,7 +71,6 @@ export function ShareSection() {
       try {
         await navigator.share({
           title: "현모 & 은지의 결혼식에 초대합니다",
-          text: "2026년 6월 6일 토요일 오후 12시 30분, 더 S 웨딩홀",
           url: window.location.href,
         });
       } catch {

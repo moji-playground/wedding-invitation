@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       "2026년 6월 6일 토요일 오후 12시 30분, 더 S 웨딩홀 1층 컨벤션홀",
     images: [
       {
-        url: "https://wedding-invitation-gules.vercel.app/images/thumbnail.jpeg",
+        url: "https://wedding-invitation-gules.vercel.app/images/thumbnail-v2.jpeg",
       },
     ],
   },

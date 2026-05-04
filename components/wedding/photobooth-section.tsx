@@ -9,12 +9,18 @@ export function PhotoboothSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("opacity-100", "translate-y-0");
-          entry.target.classList.remove("opacity-0", "translate-y-6");
-        }
+        if (!entry.isIntersecting) return;
+        const children =
+          ref.current?.querySelectorAll<HTMLElement>("[data-animate]");
+        children?.forEach((el, i) => {
+          setTimeout(() => {
+            el.classList.add("opacity-100", "translate-y-0");
+            el.classList.remove("opacity-0", "translate-y-6");
+          }, i * 120);
+        });
+        observer.disconnect();
       },
-      { threshold: 0.2 },
+      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" },
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -22,22 +28,26 @@ export function PhotoboothSection() {
 
   return (
     <section className="px-6 py-14">
-      <div
-        ref={ref}
-        className="flex flex-col items-center gap-6 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
-      >
-        <Camera className="w-5 h-5 text-muted-foreground" />
-
-        <div className="flex flex-col items-center gap-1">
-          <p className="text-xs tracking-[0.3em] text-muted-foreground uppercase">
-            Photobooth
-          </p>
-          <h2 className="font-serif text-xl tracking-wide text-foreground font-medium">
-            포토 부스
-          </h2>
+      <div ref={ref} className="flex flex-col items-center gap-6">
+        <div
+          data-animate
+          className="flex flex-col items-center gap-3 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+        >
+          <Camera className="w-5 h-5 text-muted-foreground" />
+          <div className="flex flex-col items-center gap-1">
+            <p className="text-xs tracking-[0.3em] text-muted-foreground uppercase">
+              Photobooth
+            </p>
+            <h2 className="font-serif text-xl tracking-wide text-foreground font-medium">
+              포토 부스
+            </h2>
+          </div>
         </div>
 
-        <div className="bg-card border border-border/50 max-w-sm w-full flex flex-col">
+        <div
+          data-animate
+          className="bg-card border border-border/50 max-w-sm w-full flex flex-col opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+        >
           {/* 이용 시간 */}
           <div className="px-6 py-5 border-b border-border/50 flex items-center justify-between">
             <p className="text-sm text-muted-foreground tracking-wide">

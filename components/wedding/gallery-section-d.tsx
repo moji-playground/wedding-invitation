@@ -90,12 +90,18 @@ export function GallerySectionD() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("opacity-100", "translate-y-0");
-          entry.target.classList.remove("opacity-0", "translate-y-6");
-        }
+        if (!entry.isIntersecting) return;
+        const children =
+          ref.current?.querySelectorAll<HTMLElement>("[data-animate]");
+        children?.forEach((el, i) => {
+          setTimeout(() => {
+            el.classList.add("opacity-100", "translate-y-0");
+            el.classList.remove("opacity-0", "translate-y-6");
+          }, i * 120);
+        });
+        observer.disconnect();
       },
-      { threshold: 0.1 },
+      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" },
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -124,19 +130,23 @@ export function GallerySectionD() {
   return (
     <>
       <section className="py-16">
-        <div
-          ref={ref}
-          className="flex flex-col items-center gap-8 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
-        >
-          <div className="flex flex-col items-center gap-1 px-6">
+        <div ref={ref} className="flex flex-col items-center gap-8">
+          <div
+            data-animate
+            className="flex flex-col items-center gap-1 px-6 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+          >
             <p className="text-sm tracking-[0.3em] text-muted-foreground uppercase">
               Gallery
             </p>
           </div>
 
           <div className="w-full max-w-sm px-4 flex flex-col gap-1">
-            {/* Row 1: 세로 2분할 */}
-            <div className="flex gap-1" style={{ height: 180 }}>
+            {/* Row 1 */}
+            <div
+              data-animate
+              className="flex gap-1 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+              style={{ height: 180 }}
+            >
               <div style={{ flex: 1 }}>
                 <GalleryImage {...photos[0]} onClick={() => open(0)} />
               </div>
@@ -145,13 +155,21 @@ export function GallerySectionD() {
               </div>
             </div>
 
-            {/* Row 2: 가로 풀 width */}
-            <div className="w-full" style={{ aspectRatio: "3/2" }}>
+            {/* Row 2 */}
+            <div
+              data-animate
+              className="w-full opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+              style={{ aspectRatio: "3/2" }}
+            >
               <GalleryImage {...photos[3]} onClick={() => open(3)} />
             </div>
 
-            {/* Row 3: 가로 2분할 */}
-            <div className="flex gap-1" style={{ height: 180 }}>
+            {/* Row 3 */}
+            <div
+              data-animate
+              className="flex gap-1 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+              style={{ height: 180 }}
+            >
               <div style={{ flex: 1 }}>
                 <GalleryImage {...photos[1]} onClick={() => open(1)} />
               </div>
@@ -160,8 +178,12 @@ export function GallerySectionD() {
               </div>
             </div>
 
-            {/* Row 4: 세로 크게 + 세로 2장 스택 */}
-            <div className="flex gap-1" style={{ height: 320 }}>
+            {/* Row 4 */}
+            <div
+              data-animate
+              className="flex gap-1 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+              style={{ height: 320 }}
+            >
               <div style={{ flex: 1.5 }}>
                 <GalleryImage {...photos[5]} onClick={() => open(5)} />
               </div>

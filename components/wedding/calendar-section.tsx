@@ -19,12 +19,18 @@ export function CalendarSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("opacity-100", "translate-y-0");
-          entry.target.classList.remove("opacity-0", "translate-y-6");
-        }
+        if (!entry.isIntersecting) return;
+        const children =
+          ref.current?.querySelectorAll<HTMLElement>("[data-animate]");
+        children?.forEach((el, i) => {
+          setTimeout(() => {
+            el.classList.add("opacity-100", "translate-y-0");
+            el.classList.remove("opacity-0", "translate-y-6");
+          }, i * 120);
+        });
+        observer.disconnect();
       },
-      { threshold: 0.2 },
+      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" },
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -35,11 +41,11 @@ export function CalendarSection() {
 
   return (
     <section className="px-6 py-16">
-      <div
-        ref={ref}
-        className="flex flex-col items-center gap-8 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
-      >
-        <div className="flex flex-col items-center gap-2">
+      <div ref={ref} className="flex flex-col items-center gap-8">
+        <div
+          data-animate
+          className="flex flex-col items-center gap-2 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+        >
           <p className="font-serif text-primary text-sm tracking-widest uppercase">
             Calendar
           </p>
@@ -48,7 +54,10 @@ export function CalendarSection() {
           </h2>
         </div>
 
-        <div className="w-full max-w-sm">
+        <div
+          data-animate
+          className="w-full max-w-sm opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+        >
           {/* Day headers */}
           <div className="grid grid-cols-7 gap-1 mb-4 border-y border-border/50 py-3">
             {JUNE_2026.days.map((day, i) => (

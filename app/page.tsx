@@ -10,6 +10,7 @@ import { PhotoboothSection } from "@/components/wedding/photobooth-section";
 import { AccountSection } from "@/components/wedding/account-section";
 import { ShareSection } from "@/components/wedding/share-section";
 import { FooterSection } from "@/components/wedding/footer-section";
+import { MusicPlayer } from "@/components/wedding/music-player";
 
 export default function WeddingInvitationPage() {
   return (
@@ -26,6 +27,7 @@ export default function WeddingInvitationPage() {
       <AccountSection />
       <ShareSection />
       <FooterSection />
+      <MusicPlayer />
     </main>
   );
 }

@@ -145,7 +145,20 @@ function AccountRow({ account }: { account: AccountInfo }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // fallback for unsupported browsers
+      // fallback: execCommand for older/restricted browsers
+      const el = document.createElement("textarea");
+      el.value = account.number;
+      el.style.cssText = "position:fixed;top:-9999px;left:-9999px;opacity:0;";
+      document.body.appendChild(el);
+      el.focus();
+      el.select();
+      try {
+        document.execCommand("copy");
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } finally {
+        document.body.removeChild(el);
+      }
     }
   };
 

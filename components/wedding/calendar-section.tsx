@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { CalendarPlus } from "lucide-react";
 
 const JUNE_2026 = {
   year: 2026,
@@ -106,6 +107,44 @@ export function CalendarSection() {
               6월 6일 토요일 오후 12시 30분
             </p>
             <DdayText />
+            <div className="flex gap-2 mt-3">
+              <a
+                href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=현모+%26+은지+결혼식&dates=20260606T033000Z/20260606T043000Z&details=더+S+웨딩홀+1층+컨벤션홀&location=W웨딩+더S웨딩홀%2C+대한민국+부산광역시+남구+전포대로+26"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-muted-foreground border border-border/60 hover:border-foreground/30 hover:text-foreground transition-colors"
+              >
+                <CalendarPlus className="w-3 h-3" />
+                구글 캘린더
+              </a>
+              <button
+                onClick={() => {
+                  const ics = [
+                    "BEGIN:VCALENDAR",
+                    "VERSION:2.0",
+                    "BEGIN:VEVENT",
+                    "DTSTART:20260606T123000",
+                    "DTEND:20260606T133000",
+                    "SUMMARY:현모 & 은지 결혼식",
+                    "LOCATION:부산광역시 남구 전포대로 26 더 S 웨딩홀 1층 컨벤션홀",
+                    "DESCRIPTION:현모 & 은지의 결혼식에 초대합니다.",
+                    "END:VEVENT",
+                    "END:VCALENDAR",
+                  ].join("\r\n");
+                  const blob = new Blob([ics], { type: "text/calendar" });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = "wedding.ics";
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-muted-foreground border border-border/60 hover:border-foreground/30 hover:text-foreground transition-colors"
+              >
+                <CalendarPlus className="w-3 h-3" />
+                애플 캘린더
+              </button>
+            </div>
           </div>
         </div>
       </div>

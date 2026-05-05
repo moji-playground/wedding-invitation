@@ -86,7 +86,7 @@ export function LocationSection() {
             {/* Map embed */}
             <div className="mt-4 w-full aspect-[16/9] overflow-hidden bg-muted relative">
               <iframe
-                src="https://maps.google.com/maps?q=더에스웨딩홀+부산+남구+전포대로+26&output=embed&hl=ko&z=16"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDiYhLcxGhP5YWLX4XGlw4_NH5Jsq_I9nc&q=더에스웨딩홀+부산+남구+전포대로+26&zoom=16&language=ko"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -94,8 +94,6 @@ export function LocationSection() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
-              {/* 클릭 시 about:blank 이동 방지 */}
-              <div className="absolute inset-0" />
             </div>
 
             {/* Map links */}

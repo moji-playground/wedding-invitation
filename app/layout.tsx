@@ -159,10 +159,6 @@ export default function RootLayout({
         {children}
         <Analytics />
         <Script
-          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2e881768d76c32426bc22b208b480679&libraries=services,clusterer&autoload=false"
-          strategy="beforeInteractive"
-        />
-        <Script
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js"
           strategy="afterInteractive"
         />

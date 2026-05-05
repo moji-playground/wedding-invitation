@@ -339,24 +339,38 @@ function KakaoMap() {
   const address = "부산 남구 전포대로 26 삼성힐타워상가 1층";
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const kakao = (window as any).kakao;
-    if (!kakao || !kakao.maps) return;
-
-    kakao.maps.load(() => {
-      const geocoder = new kakao.maps.services.Geocoder();
+    const initMap = () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      geocoder.addressSearch(address, (result: any, status: any) => {
-        if (status === kakao.maps.services.Status.OK) {
-          const pos = {
-            lat: parseFloat(result[0].y),
-            lng: parseFloat(result[0].x),
-          };
-          setPosition(pos);
-          setCenter(pos);
-        }
+      const kakao = (window as any).kakao;
+      if (!kakao || !kakao.maps) return false;
+
+      kakao.maps.load(() => {
+        const geocoder = new kakao.maps.services.Geocoder();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        geocoder.addressSearch(address, (result: any, status: any) => {
+          if (status === kakao.maps.services.Status.OK) {
+            const pos = {
+              lat: parseFloat(result[0].y),
+              lng: parseFloat(result[0].x),
+            };
+            setPosition(pos);
+            setCenter(pos);
+          }
+        });
       });
-    });
+      return true;
+    };
+
+    if (!initMap()) {
+      // 스크립트가 아직 로드 안 됐으면 load 이벤트 후 재시도
+      const script = document.querySelector(
+        'script[src*="dapi.kakao.com"]',
+      ) as HTMLScriptElement | null;
+      if (script) {
+        script.addEventListener("load", initMap);
+        return () => script.removeEventListener("load", initMap);
+      }
+    }
   }, []);
 
   const handleReset = () => {

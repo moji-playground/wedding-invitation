@@ -93,8 +93,9 @@ export function LocationSection() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
               />
+              {/* 클릭 시 about:blank 이동 방지 */}
+              <div className="absolute inset-0" />
             </div>
 
             {/* Map links */}
